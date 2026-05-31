@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Enrich experience files with Foursquare Places API data.
-Adds/updates: foursquare_id, categoria_fsq, descricao_fsq, horarios
+Adds/updates: foursquare_id, categoria_fsq, website, and missing Instagram.
 
 Requires env var: FOURSQUARE_API_KEY
 
@@ -79,32 +79,33 @@ def _yaml_str(value: str) -> str:
 
 def inject_fsq_fields(fm: str, fields: dict) -> str:
     """
-    Insert/replace foursquare_id, categoria_fsq, descricao_fsq, horarios
-    at the top level of the frontmatter (before the `description:` key).
-    Removes old values first to avoid duplicates on --force runs.
+    Insert/replace Foursquare fields at the top level of the frontmatter.
+    Instagram is only added when the file does not already have one.
     """
-    # Remove existing FSQ fields
-    fm = re.sub(r"foursquare_id:.*\n", "", fm)
-    fm = re.sub(r"categoria_fsq:.*\n", "", fm)
-    fm = re.sub(r"website:.*\n", "", fm)
-
     lines = []
-    if fields.get("foursquare_id"):
-        lines.append(f'foursquare_id: "{fields["foursquare_id"]}"')
-    if fields.get("categoria_fsq"):
-        lines.append(f'categoria_fsq: {_yaml_str(fields["categoria_fsq"])}')
-    if fields.get("website"):
-        lines.append(f'website: {_yaml_str(fields["website"])}')
+
+    for key in ("foursquare_id", "categoria_fsq", "website"):
+        value = fields.get(key)
+        if not value:
+            continue
+        fm = re.sub(rf"^{key}:.*\n", "", fm, flags=re.MULTILINE)
+        lines.append(f"{key}: {_yaml_str(value)}")
+
+    if fields.get("instagram") and not re.search(r"^instagram:", fm, re.MULTILINE):
+        instagram = fields["instagram"].lstrip("@").strip()
+        if instagram:
+            lines.append(f"instagram: {_yaml_str(instagram)}")
+            lines.append(f"instagramUrl: {_yaml_str(f'https://www.instagram.com/{instagram}/')}")
 
     if not lines:
         return fm
 
     insertion = "\n".join(lines) + "\n"
 
-    # Insert before `description:` line
-    desc_match = re.search(r"^description:", fm, re.MULTILINE)
-    if desc_match:
-        pos = desc_match.start()
+    # Insert before content-ish fields when possible, keeping metadata grouped.
+    insert_match = re.search(r"^(description|images|source):", fm, re.MULTILINE)
+    if insert_match:
+        pos = insert_match.start()
         return fm[:pos] + insertion + fm[pos:]
 
     # Fallback: append before end
@@ -175,6 +176,7 @@ def process_file(md_path: Path) -> bool:
         "foursquare_id": fsq_id,
         "categoria_fsq": categoria,
         "website": website,
+        "instagram": instagram_fsq,
     }
 
     new_fm = inject_fsq_fields(fm, fields)
