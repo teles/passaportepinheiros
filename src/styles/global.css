@@ -72,7 +72,6 @@ a {
 button,
 input {
   font-family: inherit;
-  font-size: inherit;
 }
 
 .container-shell {
@@ -126,55 +125,26 @@ input {
 }
 
 .brand-ribbon {
-  position: relative;
-  height: 42px;
-  overflow: hidden;
-  border-block: 1px solid rgba(0, 110, 199, 0.14);
-  background: var(--color-surface);
-}
-
-.brand-ribbon::before,
-.brand-ribbon::after {
-  content: "";
-  position: absolute;
-  left: -6%;
-  width: 112%;
-  height: 8px;
   background: var(--color-primary);
-  transform: rotate(-2.5deg);
-}
-
-.brand-ribbon::before {
-  top: 12px;
-}
-
-.brand-ribbon::after {
-  top: 25px;
-  opacity: 0.32;
+  padding-block: 10px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .brand-ribbon span {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-primary);
+  display: block;
+  color: white;
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .favorite-button[data-active="true"] {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
-}
-
-.visited-button[data-active="true"] {
-  background: var(--color-mint);
-  border-color: var(--color-mint);
   color: white;
 }
 
