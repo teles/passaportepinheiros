@@ -35,7 +35,38 @@ PUBLIC_ASSETS_URL = "/experiencias"
 CATEGORIES = ("produtos", "restaurantes", "servicos")
 
 PHOTO_HEIGHT_RATIO = 608 / 1920
+LOGO_CROP_HEIGHT_RATIO = 0.104
+TALL_LOGO_CROP_HEIGHT_RATIO = 0.125
 LOGO_BG = "#fbfaf6"
+
+TALL_LOGO_SLUGS = {
+    "bakebun-bakery",
+    "beik-cookies",
+    "blanche-brasil",
+    "braz-trattoria",
+    "capivara",
+    "carmel-s-pipocas",
+    "dedo-de-la-chica",
+    "dona-vitamina",
+    "emporio-sao-joao",
+    "gua-co",
+    "hm-food-cafe",
+    "low-bbq",
+    "miya-wine-bar",
+    "nos-outros",
+    "nour",
+    "o-pasquim",
+    "ogres-tatoo",
+    "ombra",
+    "panda-ya",
+    "piraja",
+    "rendez-vous",
+    "ripito",
+    "suri",
+    "the-taco-shop",
+    "toscana-focacceria",
+    "vino",
+}
 
 
 @dataclass(frozen=True)
@@ -490,13 +521,16 @@ def crop_experience_photo(image_path: Path, out_path: Path) -> None:
     )
 
 
-def crop_logo(image_path: Path, out_path: Path) -> None:
+def crop_logo(image_path: Path, out_path: Path, slug: str) -> None:
     width, height = image_size(image_path)
     photo_height = round(height * PHOTO_HEIGHT_RATIO)
     crop_width = round(width * 0.56)
     crop_x = round((width - crop_width) / 2)
     crop_y = photo_height + round(height * 0.022)
-    crop_height = round(height * 0.104)
+    crop_height_ratio = (
+        TALL_LOGO_CROP_HEIGHT_RATIO if slug in TALL_LOGO_SLUGS else LOGO_CROP_HEIGHT_RATIO
+    )
+    crop_height = round(height * crop_height_ratio)
 
     run_command(
         [
@@ -716,7 +750,7 @@ def process_image(category: str, image_path: Path, dry_run: bool, use_curated: b
     asset_dir.mkdir(parents=True, exist_ok=True)
     preserved_frontmatter = frontmatter_field_block(content_path, "enderecos")
     crop_experience_photo(image_path, asset_dir / "experiencia.jpg")
-    crop_logo(image_path, asset_dir / "logo.png")
+    crop_logo(image_path, asset_dir / "logo.png", slug)
     content_path.write_text(
         markdown_for(
             info,
