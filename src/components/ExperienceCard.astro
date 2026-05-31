@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, AtSign, Heart, Sparkles } from '@lucide/astro';
+import { ArrowRight, CircleCheck, Heart, Sparkles } from '@lucide/astro';
 import {
   categoryLabel,
   compactDescription,
@@ -16,7 +16,7 @@ const { experience } = Astro.props;
 const { data } = experience;
 const href = experiencePath(experience);
 const description = compactDescription(data.description);
-const favoriteId = `${data.category}:${data.slug}`;
+const experienceId = `${data.category}:${data.slug}`;
 ---
 
 <article
@@ -24,6 +24,7 @@ const favoriteId = `${data.category}:${data.slug}`;
   data-experience-card
   data-category={data.category}
   data-slug={data.slug}
+  data-experience-id={experienceId}
   data-search={searchPayload(experience)}
 >
   <div class="relative aspect-[4/3] overflow-hidden bg-surface-muted">
@@ -37,9 +38,21 @@ const favoriteId = `${data.category}:${data.slug}`;
     </a>
     <button
       type="button"
+      class="visited-button focus-ring absolute left-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-surface/95 text-primary shadow-sm transition"
+      data-visited-button
+      data-visited-id={experienceId}
+      data-no-modal
+      title="Marcar como visitado"
+      aria-label={`Marcar ${data.title} como visitado`}
+      aria-pressed="false"
+    >
+      <CircleCheck class="h-5 w-5" aria-hidden="true" />
+    </button>
+    <button
+      type="button"
       class="favorite-button focus-ring absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-surface/95 text-primary shadow-sm transition"
       data-favorite-button
-      data-favorite-id={favoriteId}
+      data-favorite-id={experienceId}
       data-no-modal
       aria-label={`Favoritar ${data.title}`}
       aria-pressed="false"
@@ -79,21 +92,34 @@ const favoriteId = `${data.category}:${data.slug}`;
       </div>
     </div>
 
-    <div class="mt-auto flex items-center justify-between gap-4 pt-5">
+    <div class="mt-auto flex min-w-0 items-center justify-between gap-4 pt-5">
       <a
         href={data.instagramUrl}
         target="_blank"
         rel="noreferrer"
         data-no-modal
-        class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-primary"
+        class="inline-flex min-w-0 items-center gap-2 text-sm font-semibold text-muted hover:text-primary"
       >
-        <AtSign class="h-4 w-4" aria-hidden="true" />
-        @{data.instagram}
+        <svg
+          class="h-4 w-4 shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+        </svg>
+        <span class="truncate">@{data.instagram}</span>
       </a>
       <a
         href={href}
         data-no-modal
-        class="inline-flex items-center gap-1 font-display text-sm font-bold uppercase tracking-wide text-primary hover:text-primary-strong"
+        class="inline-flex shrink-0 items-center gap-1 font-display text-sm font-bold uppercase tracking-wide text-primary hover:text-primary-strong"
       >
         Ver
         <ArrowRight class="h-4 w-4" aria-hidden="true" />

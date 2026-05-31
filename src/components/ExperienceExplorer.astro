@@ -1,5 +1,13 @@
 ---
-import { BriefcaseBusiness, Search, ShoppingBag, SlidersHorizontal, Utensils } from '@lucide/astro';
+import {
+  BriefcaseBusiness,
+  CircleCheck,
+  Heart,
+  Search,
+  ShoppingBag,
+  SlidersHorizontal,
+  Utensils,
+} from '@lucide/astro';
 import ExperienceCard from './ExperienceCard.astro';
 import {
   categoryLabel,
@@ -41,6 +49,11 @@ const filterItems = [
   { value: 'servicos', label: 'Serviços', count: counts.servicos, Icon: BriefcaseBusiness },
   { value: 'produtos', label: 'Produtos', count: counts.produtos, Icon: ShoppingBag },
 ];
+
+const statusFilterItems = [
+  { value: 'favoritos', label: 'Favoritos', Icon: Heart },
+  { value: 'visitados', label: 'Visitados', Icon: CircleCheck },
+];
 ---
 
 <section class="container-shell pt-8 pb-10 md:pt-10 md:pb-14" id="experiencias" data-explorer data-initial-category={initialCategory}>
@@ -72,6 +85,31 @@ const filterItems = [
           ))
         }
       </div>
+
+      <div class="mt-7 border-t border-border/70 pt-5">
+        <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
+          Meu passaporte
+        </p>
+        <div class="mt-3 grid gap-2">
+          {
+            statusFilterItems.map(({ value, label, Icon }) => (
+              <button
+                type="button"
+                class="status-filter-button focus-ring flex items-center justify-between rounded-lg border border-border/70 bg-surface-soft/60 px-4 py-3 text-left font-display text-sm font-bold uppercase tracking-wide text-primary transition hover:border-primary"
+                data-status-filter-button
+                data-status-filter-value={value}
+                aria-pressed="false"
+              >
+                <span class="flex items-center gap-3">
+                  <Icon class="h-5 w-5" aria-hidden="true" />
+                  {label}
+                </span>
+                <span class="rounded bg-white px-2 py-1 text-xs text-muted" data-status-count={value}>0</span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
     </aside>
 
     <div>
@@ -101,6 +139,7 @@ const filterItems = [
           <span class="rounded-full bg-primary-soft px-3 py-1 font-display text-xs font-bold uppercase tracking-wide text-primary" data-active-filter-label>
             {initialLabel}
           </span>
+          <span class="hidden rounded-full bg-surface-muted px-3 py-1 font-display text-xs font-bold uppercase tracking-wide text-muted" data-active-status-filter-label></span>
           <span>
             <strong class="text-primary" data-results-count>{sortedExperiences.length}</strong>
             experiências encontradas
@@ -120,7 +159,7 @@ const filterItems = [
   </div>
 </section>
 
-<script type="application/json" id="exp-data" set:html={JSON.stringify(experiencesData)}></script>
+<script is:inline type="application/json" id="exp-data" set:html={JSON.stringify(experiencesData)}></script>
 
 <dialog
   class="modal-dialog"
@@ -132,53 +171,76 @@ const filterItems = [
     class="flex min-h-full w-full items-end justify-center sm:items-center sm:p-4"
     id="exp-modal-backdrop"
   >
-    <div class="modal-panel relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl">
-      <div class="relative h-52 shrink-0 overflow-hidden bg-surface-muted">
-        <img id="exp-modal-img" src="" alt="" class="h-full w-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-        <button
-          type="button"
-          id="exp-modal-close"
-          class="focus-ring absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white transition hover:bg-black/60"
-          aria-label="Fechar"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-        <div class="absolute bottom-4 left-4 right-14 flex items-end gap-3">
-          <img
-            id="exp-modal-logo"
-            src=""
-            alt=""
-            class="h-14 w-14 shrink-0 rounded-lg border-2 border-white/80 bg-white object-contain p-1 shadow-lg"
-          />
-          <div class="min-w-0 text-white">
-            <p id="exp-modal-category" class="font-display text-xs font-bold uppercase tracking-wide opacity-80"></p>
-            <h2 id="exp-modal-title" class="font-display text-xl font-bold leading-tight sm:text-2xl"></h2>
+    <div class="modal-panel relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-2xl border border-border/70 bg-white shadow-2xl sm:rounded-2xl">
+
+      <!-- Scrollable content -->
+      <div class="flex-1 overflow-y-auto">
+
+        <!-- Hero image -->
+        <div class="relative h-64 w-full shrink-0 overflow-hidden bg-surface-muted sm:h-72">
+          <img id="exp-modal-img" src="" alt="" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+          <!-- Close -->
+          <button
+            type="button"
+            id="exp-modal-close"
+            class="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink shadow-sm transition hover:bg-surface-muted"
+            aria-label="Fechar"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+
+          <!-- Logo + title overlay -->
+          <div class="absolute bottom-5 left-5 right-5 flex items-end gap-4">
+            <div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 border-white/80 bg-white p-1 shadow-md">
+              <img id="exp-modal-logo" src="" alt="" class="h-full w-full object-contain" />
+            </div>
+            <div class="min-w-0 text-white">
+              <p id="exp-modal-category" class="mb-1 text-xs font-semibold uppercase tracking-widest text-white/80"></p>
+              <h2 id="exp-modal-title" class="font-display text-2xl font-bold leading-tight"></h2>
+            </div>
           </div>
+        </div>
+
+        <!-- Body -->
+        <div id="exp-modal-body" class="space-y-8 p-6 md:p-8"></div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="flex shrink-0 items-center justify-between border-t border-border/70 bg-white px-5 py-4">
+        <div class="flex gap-2">
+          <button
+            type="button"
+            id="exp-modal-prev"
+            class="focus-ring inline-flex items-center gap-1 rounded-full border border-border/70 px-3 py-2 text-xs font-semibold text-primary transition hover:border-primary hover:bg-surface-soft disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Anterior
+          </button>
+          <button
+            type="button"
+            id="exp-modal-next"
+            class="focus-ring inline-flex items-center gap-1 rounded-full border border-border/70 px-3 py-2 text-xs font-semibold text-primary transition hover:border-primary hover:bg-surface-soft disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Próximo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="flex items-center gap-4">
+          <span id="exp-modal-counter" class="text-xs text-muted"></span>
+          <a
+            id="exp-modal-link"
+            href="#"
+            class="inline-flex items-center gap-1 text-sm font-semibold text-primary transition hover:text-primary-strong"
+          >
+            Ver página completa
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
 
-      <div id="exp-modal-body" class="overflow-y-auto p-5"></div>
-
-      <div class="flex shrink-0 items-center justify-between border-t border-border/70 bg-surface px-4 py-3">
-        <button
-          type="button"
-          id="exp-modal-prev"
-          class="focus-ring inline-flex items-center gap-1.5 rounded-full border border-border/70 px-3 py-2 font-display text-xs font-bold uppercase tracking-wide text-primary transition hover:border-primary hover:bg-primary-soft disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-          Anterior
-        </button>
-        <span id="exp-modal-counter" class="font-display text-xs font-bold text-muted"></span>
-        <button
-          type="button"
-          id="exp-modal-next"
-          class="focus-ring inline-flex items-center gap-1.5 rounded-full border border-border/70 px-3 py-2 font-display text-xs font-bold uppercase tracking-wide text-primary transition hover:border-primary hover:bg-primary-soft disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          Próximo
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      </div>
     </div>
   </div>
 </dialog>
@@ -193,30 +255,47 @@ const filterItems = [
       .trim();
 
   const favoriteStorageKey = 'passaporte-pinheiros:favorites';
+  const visitedStorageKey = 'passaporte-pinheiros:visited';
 
   document.querySelectorAll('[data-explorer]').forEach((root) => {
     const searchInput = root.querySelector<HTMLInputElement>('[data-search-input]');
     const clearButton = root.querySelector<HTMLButtonElement>('[data-clear-filters]');
     const filterButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-filter-button]')];
+    const statusFilterButtons = [
+      ...root.querySelectorAll<HTMLButtonElement>('[data-status-filter-button]'),
+    ];
     const cards = [...root.querySelectorAll<HTMLElement>('[data-experience-card]')];
     const resultCount = root.querySelector<HTMLElement>('[data-results-count]');
     const activeLabel = root.querySelector<HTMLElement>('[data-active-filter-label]');
+    const activeStatusLabel = root.querySelector<HTMLElement>('[data-active-status-filter-label]');
     const emptyState = root.querySelector<HTMLElement>('[data-empty-state]');
     const grid = root.querySelector<HTMLElement>('[data-results-grid]');
 
     let activeCategory = root.getAttribute('data-initial-category') || 'todos';
+    let activeStatus = 'todos';
 
-    const readFavorites = () => {
+    const readStorageSet = (key: string) => {
       try {
-        const parsed = JSON.parse(localStorage.getItem(favoriteStorageKey) || '[]');
+        const parsed = JSON.parse(localStorage.getItem(key) || '[]');
         return new Set<string>(Array.isArray(parsed) ? parsed : []);
       } catch {
         return new Set<string>();
       }
     };
 
+    const writeStorageSet = (key: string, values: Set<string>) => {
+      localStorage.setItem(key, JSON.stringify([...values]));
+    };
+
+    const readFavorites = () => readStorageSet(favoriteStorageKey);
+    const readVisited = () => readStorageSet(visitedStorageKey);
+
     const writeFavorites = (favorites: Set<string>) => {
-      localStorage.setItem(favoriteStorageKey, JSON.stringify([...favorites]));
+      writeStorageSet(favoriteStorageKey, favorites);
+    };
+
+    const writeVisited = (visited: Set<string>) => {
+      writeStorageSet(visitedStorageKey, visited);
     };
 
     const syncFavorites = () => {
@@ -226,6 +305,30 @@ const filterItems = [
         const active = id ? favorites.has(id) : false;
         button.setAttribute('data-active', String(active));
         button.setAttribute('aria-pressed', String(active));
+      });
+    };
+
+    const syncVisited = () => {
+      const visited = readVisited();
+      root.querySelectorAll('[data-visited-button]').forEach((button) => {
+        const id = button.getAttribute('data-visited-id');
+        const active = id ? visited.has(id) : false;
+        button.setAttribute('data-active', String(active));
+        button.setAttribute('aria-pressed', String(active));
+      });
+    };
+
+    const updateStatusCounts = () => {
+      const favorites = readFavorites();
+      const visited = readVisited();
+      const counts = {
+        favoritos: cards.filter((card) => favorites.has(card.getAttribute('data-experience-id') || '')).length,
+        visitados: cards.filter((card) => visited.has(card.getAttribute('data-experience-id') || '')).length,
+      };
+
+      root.querySelectorAll<HTMLElement>('[data-status-count]').forEach((item) => {
+        const key = item.getAttribute('data-status-count') as keyof typeof counts | null;
+        if (key) item.textContent = String(counts[key] ?? 0);
       });
     };
 
@@ -239,14 +342,21 @@ const filterItems = [
 
     const applyFilters = () => {
       const query = normalize(searchInput?.value || '');
+      const favorites = readFavorites();
+      const visited = readVisited();
       let visible = 0;
 
       cards.forEach((card) => {
+        const id = card.getAttribute('data-experience-id') || '';
         const category = card.getAttribute('data-category');
         const payload = normalize(card.getAttribute('data-search') || '');
         const categoryMatches = activeCategory === 'todos' || category === activeCategory;
         const searchMatches = !query || payload.includes(query);
-        const shouldShow = categoryMatches && searchMatches;
+        const statusMatches =
+          activeStatus === 'todos' ||
+          (activeStatus === 'favoritos' && favorites.has(id)) ||
+          (activeStatus === 'visitados' && visited.has(id));
+        const shouldShow = categoryMatches && searchMatches && statusMatches;
 
         card.hidden = !shouldShow;
         if (shouldShow) visible += 1;
@@ -259,6 +369,13 @@ const filterItems = [
         );
       });
 
+      statusFilterButtons.forEach((button) => {
+        button.setAttribute(
+          'aria-pressed',
+          String(button.getAttribute('data-status-filter-value') === activeStatus),
+        );
+      });
+
       const activeButton = filterButtons.find(
         (button) => button.getAttribute('data-filter-value') === activeCategory,
       );
@@ -266,10 +383,20 @@ const filterItems = [
         activeLabel.textContent = activeButton.textContent?.replace(/\d+/g, '').trim() || 'Todas';
       }
 
+      const activeStatusButton = statusFilterButtons.find(
+        (button) => button.getAttribute('data-status-filter-value') === activeStatus,
+      );
+      if (activeStatusLabel) {
+        activeStatusLabel.textContent =
+          activeStatusButton?.textContent?.replace(/\d+/g, '').trim() || '';
+        activeStatusLabel.classList.toggle('hidden', activeStatus === 'todos');
+      }
+
       if (resultCount) resultCount.textContent = String(visible);
       emptyState?.classList.toggle('hidden', visible > 0);
       grid?.classList.toggle('hidden', visible === 0);
       updateVisibleSlugs();
+      updateStatusCounts();
     };
 
     filterButtons.forEach((button) => {
@@ -279,10 +406,19 @@ const filterItems = [
       });
     });
 
+    statusFilterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const nextStatus = button.getAttribute('data-status-filter-value') || 'todos';
+        activeStatus = activeStatus === nextStatus ? 'todos' : nextStatus;
+        applyFilters();
+      });
+    });
+
     searchInput?.addEventListener('input', applyFilters);
 
     clearButton?.addEventListener('click', () => {
       activeCategory = 'todos';
+      activeStatus = 'todos';
       if (searchInput) searchInput.value = '';
       applyFilters();
       searchInput?.focus();
@@ -301,10 +437,30 @@ const filterItems = [
         }
         writeFavorites(favorites);
         syncFavorites();
+        applyFilters();
+      });
+    });
+
+    root.querySelectorAll('[data-visited-button]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = button.getAttribute('data-visited-id');
+        if (!id) return;
+
+        const visited = readVisited();
+        if (visited.has(id)) {
+          visited.delete(id);
+        } else {
+          visited.add(id);
+        }
+        writeVisited(visited);
+        syncVisited();
+        applyFilters();
       });
     });
 
     syncFavorites();
+    syncVisited();
+    updateStatusCounts();
     applyFilters();
 
     // ---- Experience Modal ----
@@ -335,6 +491,7 @@ const filterItems = [
     const modalNext = document.getElementById('exp-modal-next') as HTMLButtonElement | null;
     const modalCounter = document.getElementById('exp-modal-counter');
     const modalBackdrop = document.getElementById('exp-modal-backdrop');
+    const modalLink = document.getElementById('exp-modal-link') as HTMLAnchorElement | null;
 
     const rawExpData = document.getElementById('exp-data')?.textContent ?? '[]';
     const allExpData: ExpModalData[] = JSON.parse(rawExpData);
@@ -354,64 +511,214 @@ const filterItems = [
         .replace(/"/g, '&quot;');
 
     const mapPinSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+    const waSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>`;
+    const phoneSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.44 2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
+    const instagramSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>`;
     const extLinkSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>`;
-    const arrowRightSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
     const sparkleSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>`;
 
     const renderModalBody = (exp: ExpModalData) => {
       const desc = exp.description.replace(/\s+/g, ' ').trim();
+
+      // Benefício card — azul claro como no design
       let html = `
-        <div class="mb-5 flex items-start gap-3 rounded-lg border border-border/70 bg-primary-soft p-4">
-          <span class="mt-0.5 shrink-0 text-primary">${sparkleSvg}</span>
-          <div>
-            <p class="font-display text-xs font-bold uppercase tracking-wide text-primary">Benefício Passaporte</p>
-            <p class="mt-1 text-sm leading-relaxed text-muted">${esc(desc)}</p>
+        <div class="rounded-xl border border-primary/20 bg-primary/10 p-5">
+          <div class="mb-3 flex items-center gap-2 text-primary">
+            ${sparkleSvg}
+            <p class="m-0 text-[13px] font-semibold uppercase tracking-widest text-primary">Benefício Passaporte</p>
           </div>
+          <p class="m-0 text-[15px] leading-relaxed text-ink">${esc(desc)}</p>
         </div>`;
 
+      // Endereços e Contato
       if (exp.enderecos.length > 0) {
-        html += `<div class="mb-5">
-          <p class="mb-3 font-display text-xs font-bold uppercase tracking-wide text-primary">Endereços e contato</p>
-          <div class="grid gap-3">`;
+        html += `<section class="space-y-4">
+          <p class="text-[12px] font-semibold uppercase tracking-widest text-muted">Endereços e Contato</p>
+          <div class="flex flex-col gap-3">`;
         for (const end of exp.enderecos) {
-          html += `<div class="rounded-lg border border-border/70 bg-surface-soft p-3">
-            <p class="flex items-start gap-2 text-sm font-semibold text-ink">
-              <span class="mt-0.5 shrink-0 text-primary">${mapPinSvg}</span>
-              ${esc(end.logradouro)}, ${esc(end.numero)}
-            </p>`;
+          // Address card
+          html += `<div class="flex items-start gap-3 rounded-xl border border-border/70 bg-surface-soft p-4">
+            <span class="mt-0.5 shrink-0 text-muted">${mapPinSvg}</span>
+            <div>
+              <p class="m-0 mb-1 text-sm font-semibold text-ink">${esc(end.logradouro)}, ${esc(end.numero)}`;
           if (end.complemento) {
-            html += `<p class="mt-0.5 pl-5 text-xs text-muted">${esc(end.complemento)}</p>`;
+            html += ` — ${esc(end.complemento)}`;
           }
-          if (end.telefones.length > 0) {
-            html += `<div class="mt-2 flex flex-wrap gap-2">`;
+          html += `</p>
+              <p class="m-0 text-[13px] text-muted">Pinheiros, São Paulo - SP</p>
+            </div>
+          </div>`;
+          // Contact buttons row
+          if (end.telefones.length > 0 || exp.instagram) {
+            html += `<div class="flex flex-wrap gap-3">`;
             for (const tel of end.telefones) {
               const isWA = tel.tipo === 'whatsapp';
               const href = isWA ? `https://wa.me/55${esc(tel.numero)}` : `tel:+55${esc(tel.numero)}`;
-              const label = isWA ? 'WhatsApp' : 'Telefone';
-              html += `<a href="${href}" ${isWA ? 'target="_blank" rel="noreferrer"' : ''} class="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-semibold text-muted transition hover:border-primary hover:text-primary">${label}: ${esc(tel.formatado)}</a>`;
+              const icon = isWA ? waSvg : phoneSvg;
+              const label = isWA ? 'WhatsApp' : esc(tel.formatado);
+              const cls = isWA
+                ? 'inline-flex items-center gap-2 rounded-lg border border-[#25D366]/20 bg-[#25D366]/10 px-4 py-2.5 text-[13px] font-semibold text-[#075E54] transition hover:bg-[#25D366]/20'
+                : 'inline-flex items-center gap-2 rounded-lg border border-border/70 bg-surface-soft px-4 py-2.5 text-[13px] font-semibold text-muted transition hover:bg-surface-muted hover:border-border';
+              html += `<a href="${href}" ${isWA ? 'target="_blank" rel="noreferrer"' : ''} class="${cls}">${icon}${label}</a>`;
+            }
+            if (exp.instagram) {
+              html += `<a href="${esc(exp.instagramUrl)}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-border/70 bg-surface-soft px-4 py-2.5 text-[13px] font-semibold text-muted transition hover:bg-surface-muted hover:border-border">${instagramSvg}@${esc(exp.instagram)}</a>`;
             }
             html += `</div>`;
           }
-          html += `</div>`;
         }
-        html += `</div></div>`;
+        html += `</div></section>`;
+      } else if (exp.instagram) {
+        html += `<section class="space-y-4">
+          <p class="text-[12px] font-semibold uppercase tracking-widest text-muted">Instagram</p>
+          <a href="${esc(exp.instagramUrl)}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-border/70 bg-surface-soft px-4 py-2.5 text-[13px] font-semibold text-muted transition hover:bg-surface-muted">${instagramSvg}@${esc(exp.instagram)}</a>
+        </section>`;
       }
 
-      html += `<div class="flex flex-col gap-2 sm:flex-row">
-        <a
-          href="${esc(exp.instagramUrl)}"
-          target="_blank"
-          rel="noreferrer"
-          class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-primary px-4 py-3 font-display text-xs font-bold uppercase tracking-wide text-primary transition hover:bg-primary hover:text-white"
-        >@${esc(exp.instagram)} ${extLinkSvg}</a>
-        <a
-          href="/experiencias/${esc(exp.category)}/${esc(exp.slug)}/"
-          class="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 font-display text-xs font-bold uppercase tracking-wide text-white transition hover:bg-primary-strong"
-        >Ver página completa ${arrowRightSvg}</a>
-      </div>`;
+      // Minhas Visitas
+      const visits = loadVisits(exp.slug);
+      let visitsHtml = visits.length === 0
+        ? `<div class="rounded-xl border border-dashed border-border/70 bg-surface-soft py-8 text-center" id="visits-empty">
+             <p class="m-0 text-[13px] text-muted">Você ainda não registrou nenhuma visita aqui.</p>
+           </div>`
+        : `<div class="space-y-3" id="visits-list">${visits.map((v, i) => renderVisitItem(v, i)).join('')}</div>`;
+
+      html += `<hr class="border-border/70" />
+        <section class="space-y-5" id="visits-section" data-slug="${esc(exp.slug)}">
+          <div class="flex items-center justify-between">
+            <p class="m-0 text-[12px] font-semibold uppercase tracking-widest text-muted">Minhas Visitas</p>
+            <button type="button" id="btn-add-visit" class="flex items-center gap-1 text-[13px] font-semibold text-primary transition hover:opacity-70">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Registrar Visita
+            </button>
+          </div>
+          <div id="visit-form-wrap" class="hidden">
+            <form id="visit-form" class="rounded-xl border border-border/70 bg-surface-soft p-4 space-y-3">
+              <div>
+                <label for="visit-date" class="block text-[12px] font-semibold uppercase tracking-widest text-muted mb-1">Data da visita</label>
+                <input type="date" id="visit-date" name="date" required
+                  class="w-full rounded-lg border border-border/70 bg-white px-3 py-2 text-[14px] text-ink focus:border-primary focus:outline-none" />
+              </div>
+              <div>
+                <label for="visit-comment" class="block text-[12px] font-semibold uppercase tracking-widest text-muted mb-1">Comentário <span class="normal-case font-normal">(opcional)</span></label>
+                <textarea id="visit-comment" name="comment" rows="3" placeholder="Como foi a experiência?"
+                  class="w-full rounded-lg border border-border/70 bg-white px-3 py-2 text-[14px] text-ink resize-none focus:border-primary focus:outline-none placeholder:text-muted/50"></textarea>
+              </div>
+              <div class="flex gap-2 justify-end">
+                <button type="button" id="btn-cancel-visit" class="rounded-lg border border-border/70 px-4 py-2 text-[13px] font-semibold text-muted transition hover:bg-surface-muted">Cancelar</button>
+                <button type="submit" class="rounded-lg bg-primary px-4 py-2 text-[13px] font-semibold text-white transition hover:opacity-90">Salvar</button>
+              </div>
+            </form>
+          </div>
+          ${visitsHtml}
+        </section>`;
 
       return html;
     };
+
+    type VisitEntry = { date: string; comment: string };
+
+    const visitsKey = (slug: string) => `pp_visits_${slug}`;
+
+    const loadVisits = (slug: string): VisitEntry[] => {
+      try { return JSON.parse(localStorage.getItem(visitsKey(slug)) ?? '[]'); } catch { return []; }
+    };
+
+    const saveVisitEntry = (slug: string, entry: VisitEntry) => {
+      const visits = loadVisits(slug);
+      visits.unshift(entry);
+      localStorage.setItem(visitsKey(slug), JSON.stringify(visits));
+    };
+
+    const deleteVisitEntry = (slug: string, idx: number) => {
+      const visits = loadVisits(slug);
+      visits.splice(idx, 1);
+      localStorage.setItem(visitsKey(slug), JSON.stringify(visits));
+    };
+
+    const formatVisitDate = (iso: string) => {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+    };
+
+    const renderVisitItem = (v: VisitEntry, i: number) => `
+      <div class="flex gap-4 rounded-xl border border-border/70 bg-white p-4 group" data-visit-idx="${i}">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/70 bg-surface-soft">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="m-0 mb-1 text-[14px] font-semibold text-ink">${formatVisitDate(v.date)}</p>
+          ${v.comment ? `<p class="m-0 text-[14px] text-muted">${esc(v.comment)}</p>` : ''}
+        </div>
+        <button type="button" data-delete-visit="${i}" class="shrink-0 opacity-0 group-hover:opacity-100 transition text-muted hover:text-red-500" aria-label="Remover visita">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>`;
+
+    const rerenderVisits = (slug: string) => {
+      const section = document.getElementById('visits-section');
+      if (!section || section.dataset.slug !== slug) return;
+      const visits = loadVisits(slug);
+      const existing = document.getElementById('visits-empty') ?? document.getElementById('visits-list');
+      if (existing) existing.remove();
+      const wrap = document.getElementById('visit-form-wrap');
+      const newEl = document.createElement('div');
+      if (visits.length === 0) {
+        newEl.id = 'visits-empty';
+        newEl.className = 'rounded-xl border border-dashed border-border/70 bg-surface-soft py-8 text-center';
+        newEl.innerHTML = '<p class="m-0 text-[13px] text-muted">Você ainda não registrou nenhuma visita aqui.</p>';
+      } else {
+        newEl.id = 'visits-list';
+        newEl.className = 'space-y-3';
+        newEl.innerHTML = visits.map((v, i) => renderVisitItem(v, i)).join('');
+      }
+      wrap?.insertAdjacentElement('afterend', newEl);
+    };
+
+    // Visits form event delegation (attached to modalBody)
+    modalBody?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const section = document.getElementById('visits-section');
+      const slug = section?.dataset.slug ?? currentSlug;
+
+      if (target.closest('#btn-add-visit')) {
+        const wrap = document.getElementById('visit-form-wrap');
+        wrap?.classList.toggle('hidden');
+        if (!wrap?.classList.contains('hidden')) {
+          const dateInput = document.getElementById('visit-date') as HTMLInputElement;
+          if (dateInput && !dateInput.value) dateInput.value = new Date().toISOString().slice(0, 10);
+          dateInput?.focus();
+        }
+        return;
+      }
+
+      if (target.closest('#btn-cancel-visit')) {
+        document.getElementById('visit-form-wrap')?.classList.add('hidden');
+        return;
+      }
+
+      const delBtn = target.closest('[data-delete-visit]') as HTMLElement | null;
+      if (delBtn) {
+        const idx = parseInt(delBtn.dataset.deleteVisit ?? '-1', 10);
+        if (idx >= 0) { deleteVisitEntry(slug, idx); rerenderVisits(slug); }
+        return;
+      }
+    });
+
+    modalBody?.addEventListener('submit', (e) => {
+      const form = (e.target as HTMLElement).closest('#visit-form') as HTMLFormElement | null;
+      if (!form) return;
+      e.preventDefault();
+      const section = document.getElementById('visits-section');
+      const slug = section?.dataset.slug ?? currentSlug;
+      const date = (form.elements.namedItem('date') as HTMLInputElement).value;
+      const comment = ((form.elements.namedItem('comment') as HTMLTextAreaElement).value ?? '').trim();
+      if (!date) return;
+      saveVisitEntry(slug, { date, comment });
+      form.reset();
+      document.getElementById('visit-form-wrap')?.classList.add('hidden');
+      rerenderVisits(slug);
+    });
 
     const updateModalCounter = () => {
       const idx = visibleSlugs.indexOf(currentSlug);
@@ -426,6 +733,7 @@ const filterItems = [
       if (modalTitle) modalTitle.textContent = exp.title;
       if (modalCategory) modalCategory.textContent = catLabels[exp.category] ?? exp.category;
       if (modalBody) modalBody.innerHTML = renderModalBody(exp);
+      if (modalLink) modalLink.href = `/experiencias/${exp.category}/${exp.slug}/`;
       updateModalCounter();
     };
 
