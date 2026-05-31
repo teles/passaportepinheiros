@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { withBase } from './urls';
 
 export type Experience = CollectionEntry<'experiencias'>;
 export type Category = 'produtos' | 'restaurantes' | 'servicos';
@@ -84,7 +85,7 @@ export function searchPayload(experience: Experience): string {
 }
 
 export function experiencePath(experience: Experience): string {
-  return `/${experience.data.slug}/`;
+  return withBase(`/${experience.data.slug}/`);
 }
 
 export function buildExperiencesUrl(category?: Category | 'todos', busca?: string): string {
@@ -92,5 +93,5 @@ export function buildExperiencesUrl(category?: Category | 'todos', busca?: strin
   if (category && category !== 'todos') params.set('categoria', category);
   if (busca && busca.trim()) params.set('busca', busca.trim());
   const qs = params.toString();
-  return `/experiencias/${qs ? `?${qs}` : ''}`;
+  return withBase(`/experiencias/${qs ? `?${qs}` : ''}`);
 }

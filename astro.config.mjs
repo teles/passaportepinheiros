@@ -3,7 +3,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://passaportepinheiros.com.br',
+  site: process.env.ASTRO_SITE ?? 'https://teles.dev.br',
+  base: process.env.ASTRO_BASE ?? '/passaportepinheiros',
   vite: {
     plugins: [tailwindcss()],
   },

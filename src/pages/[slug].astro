@@ -10,6 +10,7 @@ import {
   sortExperiences,
   type Experience,
 } from '../lib/experiences';
+import { withBase } from '../lib/urls';
 
 export async function getStaticPaths() {
   const experiences = await getCollection('experiencias');
@@ -80,7 +81,7 @@ const telefoneMeta = (telefone: Telefone) => {
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,0.22),transparent_30%),linear-gradient(135deg,var(--color-primary-strong),var(--color-primary))]"></div>
       {data.images?.experience && (
         <img
-          src={data.images.experience}
+          src={withBase(data.images.experience)}
           alt={`Foto de ${data.title}`}
           class="absolute inset-0 h-full w-full object-cover opacity-45"
           loading="eager"
@@ -90,7 +91,7 @@ const telefoneMeta = (telefone: Telefone) => {
 
       <div class="container-shell relative min-h-[420px] py-8 md:min-h-[500px] md:py-12">
         <a
-          href="/"
+          href={withBase('/')}
           class="detail-back-button focus-ring inline-flex items-center gap-2 rounded px-4 py-2 text-sm font-semibold transition"
         >
           <ArrowLeft class="h-4 w-4" aria-hidden="true" />
@@ -119,7 +120,7 @@ const telefoneMeta = (telefone: Telefone) => {
             <div class="flex max-w-4xl items-end gap-5">
               {data.images?.logo ? (
                 <img
-                  src={data.images.logo}
+                  src={withBase(data.images.logo)}
                   alt={`Logo de ${data.title}`}
                   class="hidden h-20 w-20 rounded-lg border border-white/70 bg-white object-contain p-2 md:block"
                 />
@@ -255,7 +256,7 @@ const telefoneMeta = (telefone: Telefone) => {
             <h2 class="mt-2 font-display text-3xl font-extrabold text-primary">Outras experiências</h2>
           </div>
           <a
-            href={`/${data.category}/`}
+            href={withBase(`/${data.category}/`)}
             class="hidden font-display text-sm font-bold uppercase tracking-wide text-primary hover:underline md:inline"
           >
             Ver {categoryLabel(data.category)}
