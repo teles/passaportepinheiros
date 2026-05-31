@@ -1,13 +1,27 @@
 ---
-import { Menu, X } from '@lucide/astro';
+import { ChevronDown, Menu, X } from '@lucide/astro';
 
 const pathname = Astro.url.pathname;
 
-const links = [
+const isExperienciasActive =
+  pathname.startsWith('/restaurantes') ||
+  pathname.startsWith('/servicos') ||
+  pathname.startsWith('/produtos');
+
+const topLinks = [
   { href: '/', label: 'Explorar', active: pathname === '/' || pathname.startsWith('/experiencias') },
+  { href: '/como-funciona/', label: 'Como funciona', active: pathname.startsWith('/como-funciona') },
+];
+
+const subLinks = [
   { href: '/restaurantes/', label: 'Restaurantes', active: pathname.startsWith('/restaurantes') },
   { href: '/servicos/', label: 'Serviços', active: pathname.startsWith('/servicos') },
   { href: '/produtos/', label: 'Produtos', active: pathname.startsWith('/produtos') },
+];
+
+const mobileLinks = [
+  { href: '/', label: 'Explorar', active: pathname === '/' || pathname.startsWith('/experiencias') },
+  ...subLinks,
   { href: '/como-funciona/', label: 'Como funciona', active: pathname.startsWith('/como-funciona') },
 ];
 ---
@@ -23,20 +37,64 @@ const links = [
     </a>
 
     <nav class="hidden items-center gap-6 md:flex" aria-label="Navegação principal">
-      {
-        links.map((link) => (
-          <a
-            href={link.href}
-            class:list={[
-              'font-body text-[14px] font-semibold uppercase tracking-wide transition-colors hover:text-primary',
-              link.active ? 'border-b-2 border-primary pb-1 text-primary' : 'text-muted',
-            ]}
-            aria-current={link.active ? 'page' : undefined}
-          >
-            {link.label}
-          </a>
-        ))
-      }
+      <a
+        href="/"
+        class:list={[
+          'font-body text-[14px] font-semibold uppercase tracking-wide transition-colors hover:text-primary',
+          topLinks[0].active ? 'mt-2 border-b-2 border-primary pb-1 text-primary' : 'text-muted',
+        ]}
+        aria-current={topLinks[0].active ? 'page' : undefined}
+      >
+        {topLinks[0].label}
+      </a>
+
+      <!-- Experiências dropdown -->
+      <div class="relative" data-dropdown>
+        <button
+          type="button"
+          class:list={[
+            'inline-flex cursor-pointer items-center gap-1 bg-transparent p-0 font-body text-[14px] font-semibold uppercase tracking-wide transition-colors hover:text-primary',
+            isExperienciasActive ? 'mt-2 border-b-2 border-primary pb-1 text-primary' : 'text-muted',
+          ]}
+          aria-haspopup="true"
+          aria-expanded="false"
+          data-dropdown-trigger
+        >
+          Experiências
+          <ChevronDown class="h-4 w-4 transition-transform duration-200" data-dropdown-chevron aria-hidden="true" />
+        </button>
+
+        <div
+          class="absolute left-1/2 top-full z-50 hidden w-44 -translate-x-1/2 translate-y-2 rounded-lg border border-border/70 bg-white py-1 shadow-lg"
+          data-dropdown-menu
+          role="menu"
+        >
+          {subLinks.map((link) => (
+            <a
+              href={link.href}
+              role="menuitem"
+              class:list={[
+                'block px-4 py-2.5 font-display text-sm font-bold uppercase tracking-wide transition-colors hover:bg-surface-soft hover:text-primary',
+                link.active ? 'text-primary' : 'text-muted',
+              ]}
+              aria-current={link.active ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <a
+        href="/como-funciona/"
+        class:list={[
+          'font-body text-[14px] font-semibold uppercase tracking-wide transition-colors hover:text-primary',
+          topLinks[1].active ? 'mt-2 border-b-2 border-primary pb-1 text-primary' : 'text-muted',
+        ]}
+        aria-current={topLinks[1].active ? 'page' : undefined}
+      >
+        {topLinks[1].label}
+      </a>
     </nav>
 
     <a
@@ -67,7 +125,7 @@ const links = [
   >
     <div class="grid gap-1">
       {
-        links.map((link) => (
+        mobileLinks.map((link) => (
           <a
             href={link.href}
             class:list={[
@@ -85,6 +143,7 @@ const links = [
 </header>
 
 <script>
+  // Mobile menu toggle
   const menuButton = document.querySelector('[data-mobile-menu-button]');
   const menu = document.querySelector('[data-mobile-menu]');
 
@@ -94,5 +153,37 @@ const links = [
     menu?.classList.toggle('hidden', expanded);
     menuButton.querySelector('.menu-open')?.classList.toggle('hidden', !expanded);
     menuButton.querySelector('.menu-close')?.classList.toggle('hidden', expanded);
+  });
+
+  // Desktop dropdown
+  document.querySelectorAll('[data-dropdown]').forEach((dropdown) => {
+    const trigger = dropdown.querySelector('[data-dropdown-trigger]');
+    const dropMenu = dropdown.querySelector('[data-dropdown-menu]');
+    const chevron = dropdown.querySelector('[data-dropdown-chevron]');
+
+    const open = () => {
+      dropMenu?.classList.remove('hidden');
+      trigger?.setAttribute('aria-expanded', 'true');
+      (chevron as HTMLElement | null)?.style.setProperty('transform', 'rotate(180deg)');
+    };
+    const close = () => {
+      dropMenu?.classList.add('hidden');
+      trigger?.setAttribute('aria-expanded', 'false');
+      (chevron as HTMLElement | null)?.style.setProperty('transform', '');
+    };
+
+    trigger?.addEventListener('click', () => {
+      dropMenu?.classList.contains('hidden') ? open() : close();
+    });
+
+    // Close when focus leaves the dropdown
+    dropdown.addEventListener('focusout', (e) => {
+      if (!dropdown.contains((e as FocusEvent).relatedTarget as Node)) close();
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target as Node)) close();
+    });
   });
 </script>
