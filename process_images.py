@@ -520,7 +520,7 @@ def crop_logo(image_path: Path, out_path: Path) -> None:
 def clean_instagram(raw: str) -> str:
     raw = raw.strip().replace(" ", "").replace(",", ".")
     raw = raw.lstrip("@")
-    if raw and raw[0] in {"G", "g", "6", "Q"}:
+    if raw and raw[0] in {"G", "6", "Q"}:
         raw = raw[1:]
     raw = re.sub(r"[^A-Za-z0-9_.]", "", raw)
     return raw.lower().strip("._")

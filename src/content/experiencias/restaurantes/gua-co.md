@@ -2,8 +2,8 @@
 title: "GUA.CO"
 slug: "gua-co"
 category: "restaurantes"
-instagram: "ua.co"
-instagramUrl: "https://www.instagram.com/ua.co/"
+instagram: "gua.co"
+instagramUrl: "https://www.instagram.com/gua.co/"
 description: |-
   Na compra de 1 prato principal,
   ganhe um taco.
@@ -20,4 +20,4 @@ source:
 Na compra de 1 prato principal,
 ganhe um taco.
 
-Instagram: [@ua.co](https://www.instagram.com/ua.co/)
+Instagram: [@gua.co](https://www.instagram.com/gua.co/)
