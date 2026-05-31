@@ -483,7 +483,7 @@ const statusFilterItems = [
           (activeStatus === 'favoritos' && favorites.has(id)) ||
           (activeStatus === 'visitados' && hasVisits(slug));
         const benefitMatches = activeBenefitType === 'todos' || cardBenefit === activeBenefitType;
-        const tagsMatch = activeTags.size === 0 || [...activeTags].every((t) => cardTags.includes(t));
+        const tagsMatch = activeTags.size === 0 || [...activeTags].some((t) => cardTags.includes(t));
         const shouldShow = categoryMatches && searchMatches && statusMatches && benefitMatches && tagsMatch;
 
         card.hidden = !shouldShow;
