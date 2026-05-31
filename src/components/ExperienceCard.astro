@@ -82,18 +82,18 @@ const experienceId = `${data.category}:${data.slug}`;
     <p class="line-clamp-3 min-h-[4.875rem] text-[15px] leading-relaxed text-muted">{description}</p>
 
     <div class="mt-5 border-t border-border/60 pt-4">
-      <div class="flex items-start justify-between gap-3">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
-            <Sparkles class="h-5 w-5" aria-hidden="true" />
-          </span>
+      <div class="flex items-start gap-3">
+        <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
+          <Sparkles class="h-5 w-5" aria-hidden="true" />
+        </span>
+        <div>
           <p class="brand-heading text-sm font-bold leading-snug text-primary">
             Benefício Passaporte
           </p>
+          <span class="mt-1 inline-flex items-center rounded-full bg-surface-muted px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted">
+            {benefitTypeLabel(data.benefitType ?? 'beneficio-especial')}
+          </span>
         </div>
-        <span class="inline-flex shrink-0 items-center rounded-full bg-surface-muted px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted">
-          {benefitTypeLabel(data.benefitType ?? 'beneficio-especial')}
-        </span>
       </div>
     </div>
 

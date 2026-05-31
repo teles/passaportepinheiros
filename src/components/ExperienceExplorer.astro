@@ -85,7 +85,7 @@ const statusFilterItems = [
   data-initial-tags={initialTags}
 >
   <div class="mb-8 grid gap-6 lg:grid-cols-[320px_1fr]">
-    <aside class="rounded-lg border border-border/70 bg-surface p-6 shadow-[0_16px_44px_rgba(0,110,199,0.06)] lg:sticky lg:top-28 lg:self-start">
+    <aside class="rounded-lg border border-border/70 bg-surface p-6 shadow-[0_16px_44px_rgba(0,110,199,0.06)]">
       <div class="mb-6">
         <p class="brand-heading text-sm font-bold text-primary">Filtros</p>
         <h2 class="brand-heading mt-2 text-4xl font-bold leading-none text-ink">
@@ -122,7 +122,7 @@ const statusFilterItems = [
             benefitTypes.map(({ value, label, emoji }) => (
               <button
                 type="button"
-                class="benefit-filter-button focus-ring flex items-center justify-between rounded-lg border border-border/70 bg-surface-soft/60 px-4 py-2.5 text-left font-display text-xs font-bold uppercase tracking-wide text-primary transition hover:border-primary"
+                class="benefit-filter-button focus-ring flex items-center justify-between rounded-lg border border-border/70 bg-surface-soft/60 px-4 py-2.5 text-left font-display text-xs font-bold uppercase tracking-wide text-primary transition hover:border-primary aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-white"
                 data-benefit-filter-button
                 data-benefit-value={value}
                 aria-pressed="false"
