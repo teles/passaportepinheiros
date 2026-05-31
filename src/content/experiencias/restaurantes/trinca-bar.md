@@ -12,6 +12,9 @@ enderecos:
     lng: -46.6992019
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5839e81718384c417740cebb"
+categoria_fsq: "Cocktail Bar"
+website: "http://guilhotinabar.com.br"
 description: |-
   Na compra de 1 vermute artesanal
   + 1 entrada, seu acompanhante

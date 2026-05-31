@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6806688
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "674c9a858a42dd289770a3e0"
+categoria_fsq: "Italian Restaurant"
 description: |-
   Na compra de qualquer
   item do cardápio,

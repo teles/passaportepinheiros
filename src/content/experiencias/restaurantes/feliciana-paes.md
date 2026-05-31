@@ -16,6 +16,8 @@ enderecos:
       - tipo: "telefone"
         numero: "11995342473"
         formatado: "(11) 99534-2473"
+foursquare_id: "61e5719d8fa7611e3561b704"
+categoria_fsq: "Bakery"
 description: |-
   Na compra de 1 bebida quente + 1
   pão na chapa seu

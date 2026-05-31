@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6880846
     bairro: "Vila Madalena"
     cidade: "São Paulo"
+foursquare_id: "536fa765498e350dd167cce5"
+categoria_fsq: "Mexican Restaurant"
+website: "http://dedodelachica.com.br"
 description: |-
   Na compra de 1 rodízio
   mexicano seu acompanhante

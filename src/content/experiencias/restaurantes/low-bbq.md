@@ -12,6 +12,9 @@ enderecos:
     lng: -46.6895835
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5bbfcbdb345cbe002c89108d"
+categoria_fsq: "BBQ Joint"
+website: "http://lowbbq.com.br"
 description: |-
   Na compra de 1 prato
   individual ou sanduíche,

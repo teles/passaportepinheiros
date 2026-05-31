@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6964918
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "66a2f75b943d2e70de3db4c9"
+categoria_fsq: "Wine Bar"
+website: "https://miyawinebareventonietosenetiner.my.canva.site/aprmiya"
 description: |-
   Na compra de 1 entrada,
   ganhe outra de igual ou menor

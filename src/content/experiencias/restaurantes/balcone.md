@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6768991
     bairro: "Jardim Paulista"
     cidade: "São Paulo"
+foursquare_id: "5f824d9a4af5b006163f2cce"
+categoria_fsq: "Italian Restaurant"
+website: "http://www.casabalcone.com.br"
 description: |-
   Na compra de um prato*
   seu acompanhante ganha outro de

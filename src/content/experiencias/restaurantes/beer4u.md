@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6779748
     bairro: "Jardim Paulista"
     cidade: "São Paulo"
+foursquare_id: "63a5fc476914cf4bf849dfa4"
+categoria_fsq: "Beer Bar"
 description: |-
   1º Carimbo:
   Na compra de 1 pint de chope da casa + 1

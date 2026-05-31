@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6821741
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "65dbbd2dbd01c2158bb20bdd"
+categoria_fsq: "Pizzeria"
+website: "http://www.familiabraz.com.br"
 description: |-
   Na compra de 1 prato,
   ganhe 1 taça de vinho Braz.

@@ -18,6 +18,8 @@ enderecos:
     lng: -46.6806438
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "6159f6a43e96a858090a118a"
+categoria_fsq: "Dessert Shop"
 description: |-
   Na compra de 1 pote de Caramelo
   com Flor de Sal, ganhe outro de

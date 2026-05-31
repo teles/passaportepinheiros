@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6840063
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "4c1d35618b3aa593c0349a5f"
+categoria_fsq: "Juice Bar"
+website: "http://donavitamina.com.br"
 description: |-
   Na compra de 1 sanduíche de
   frango desfiado no pão folha,

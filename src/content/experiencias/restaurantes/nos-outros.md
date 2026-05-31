@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6815386
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5dcc8f852030270008c8560b"
+categoria_fsq: "Tapas Restaurant"
 description: |-
   Na compra de 1 item* do
   cardápio, seu acompanhante

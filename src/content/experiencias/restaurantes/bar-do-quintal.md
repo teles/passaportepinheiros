@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6947464
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "68d71d2c07a5786511cc56c7"
+categoria_fsq: "Pizzeria"
 description: |-
   Aos Sábados e Domingos, na
   compra de 1 Buffet de Feijoada à

@@ -16,6 +16,8 @@ enderecos:
       - tipo: "telefone"
         numero: "1135088841"
         formatado: "(11) 3508-8841"
+foursquare_id: "5ec1906d2a8fcb0008273b8a"
+categoria_fsq: "Coffee Shop"
 description: |-
   Na compra de 1 prato, seu
   acompanhante ganha outro

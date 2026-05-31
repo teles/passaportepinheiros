@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6815241
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "64fc136eed9a2a0b8373dd7d"
+categoria_fsq: "Gelato Shop"
+website: "https://www.adgelati.com.br"
 description: |-
   Compre 1 gelato
   pequeno, médio ou grande e seu

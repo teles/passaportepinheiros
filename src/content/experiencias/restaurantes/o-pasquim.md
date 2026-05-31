@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6902415
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "53e66465498ed133e2c60c88"
+categoria_fsq: "Dive Bar"
+website: "http://opasquimbar.com.br"
 description: |-
   Na compra de um petisco
   e um drink

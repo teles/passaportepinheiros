@@ -36,6 +36,9 @@ enderecos:
       - tipo: "telefone"
         numero: "1122995337"
         formatado: "(11) 2299-5337"
+foursquare_id: "5d216062d4545e00236ca7d8"
+categoria_fsq: "Dive Bar"
+website: "https://piraja.com.br"
 description: |-
   Na compra de um chopp + uma porção
   da sessão "bolinhos"*, seu acompanhante

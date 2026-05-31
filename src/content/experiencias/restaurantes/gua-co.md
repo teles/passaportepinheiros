@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6860913
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "6408c86f578a9d7f0ddbca6c"
+categoria_fsq: "Tex-Mex Restaurant"
+website: "https://www.gua.co.com"
 description: |-
   Na compra de 1 prato principal,
   ganhe um taco.

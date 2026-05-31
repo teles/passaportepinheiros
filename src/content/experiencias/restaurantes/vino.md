@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6846483
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5ab2df9adff8152b1677f29a"
+categoria_fsq: "Wine Bar"
+website: "https://www.winebarvino.com.br"
 description: |-
   Na compra de 1 prato do
   cardápio, seu

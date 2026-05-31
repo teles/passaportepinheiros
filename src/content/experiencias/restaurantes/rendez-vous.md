@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6853397
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5751aa7e498e0bb797c0371f"
+categoria_fsq: "French Restaurant"
+website: "http://www.restauranterendezvous.com.br"
 description: |-
   Na compra de 1 prato principal à la
   carte, seu acompanhante ganha

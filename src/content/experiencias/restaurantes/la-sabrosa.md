@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6803283
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "55973b17498ec0e201f6c7ec"
+categoria_fsq: "Bicycle Store"
+website: "http://www.lasmagrelas.com.br"
 description: |-
   Na compra de 1 taco,
   ganhe outro de igual ou menor

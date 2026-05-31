@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6925073
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5dadd1e8667b8200081d9347"
+categoria_fsq: "Middle Eastern Restaurant"
 description: |-
   Na compra de um rodízio
   completo ganhe 50% de

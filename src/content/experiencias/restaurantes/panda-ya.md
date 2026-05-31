@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6820371
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5d6b34a50181700008f2cecb"
+categoria_fsq: "Dumpling Restaurant"
+website: "https://pandaya.com.br"
 description: |-
   Na compra de 1 porção de
   Gyoza ganhe outra porção de

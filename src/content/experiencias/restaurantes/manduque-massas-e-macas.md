@@ -16,6 +16,8 @@ enderecos:
       - tipo: "telefone"
         numero: "11918554227"
         formatado: "(11) 91855-4227"
+foursquare_id: "653bd276e6777379a055d6d8"
+categoria_fsq: "Mac and Cheese Joint"
 description: |-
   Na compra de qualquer prato, leve
   para casa nossa deliciosa massa

@@ -12,6 +12,8 @@ enderecos:
     lng: -46.6852478
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "6187c290de410a6a72b81a84"
+categoria_fsq: "Coffee Shop"
 description: |-
   Primeiro Carimbo:
   50% de desconto em qualquer

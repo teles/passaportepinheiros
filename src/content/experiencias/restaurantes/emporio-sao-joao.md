@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6825816
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "4ca60225b7106dcb909e59a5"
+categoria_fsq: "Brazilian Restaurant"
+website: "http://emporiosaojoao.com.br"
 description: |-
   Na compra de 1 nhoque artesanal
   de batatas ao molho de ragu de

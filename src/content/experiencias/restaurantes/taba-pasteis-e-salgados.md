@@ -16,6 +16,9 @@ enderecos:
       - tipo: "telefone"
         numero: "11954570655"
         formatado: "(11) 95457-0655"
+foursquare_id: "4d5054e207b1a09038ba013c"
+categoria_fsq: "Grocery Store"
+website: "http://www.entrepostodasfeijoadas.com.br"
 description: |-
   No primeiro carimbo:
   compre 1 pastel e ganhe outro pastel de

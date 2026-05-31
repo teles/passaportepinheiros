@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6900367
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5c545e6c396de0002cc2e2b8"
+categoria_fsq: "Middle Eastern Restaurant"
 description: |-
   Na compra de 1 prato,
   seu acompanhante ganha 50%

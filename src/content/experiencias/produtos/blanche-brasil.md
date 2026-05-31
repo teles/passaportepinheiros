@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6843296
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "62c337978c88c7194f7f39dc"
+categoria_fsq: "Arts and Crafts Store"
 description: |-
   Na compra de 1 óculos,
   ganhe outro dentre as peças

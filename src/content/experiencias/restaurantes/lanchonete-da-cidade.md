@@ -12,6 +12,9 @@ enderecos:
     lng: -46.694053
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "54819295498eee3c9e746865"
+categoria_fsq: "Burger Joint"
+website: "http://www.lanchonetedacidade.com.br"
 description: |-
   Na compra de 1 burguer ou
   sanduíche, seu acompanhante

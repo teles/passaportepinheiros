@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6957202
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "55fc25bd498ee84265f199c3"
+categoria_fsq: "Bar"
 description: |-
   Na compra de um 1 lanche ou 1
   porção, seu acompanhante ganha

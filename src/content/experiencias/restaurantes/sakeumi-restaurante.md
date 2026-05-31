@@ -18,6 +18,8 @@ enderecos:
     lng: -46.6889072
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "5d4d8cf0fc5ef0000846fb0c"
+categoria_fsq: "Japanese Restaurant"
 description: |-
   Na compra de 1 Rodízio TRADICIONAL
   ganhe 50% de desconto no Rodízio

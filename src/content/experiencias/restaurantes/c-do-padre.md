@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6964271
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "58582403d25ded6c29b89027"
+categoria_fsq: "Brazilian Restaurant"
 description: |-
   Na compra de 1 prato, seu
   acompanhante ganha outro de igual

@@ -15,6 +15,8 @@ enderecos:
     lng: -46.6978999
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "6224fe835490c463f9afc58b"
+categoria_fsq: "Taco Restaurant"
 description: |-
   Na compra de um prato, ganhe
   outro de igual ou menor valor.

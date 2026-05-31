@@ -15,6 +15,9 @@ enderecos:
     lng: -46.6859113
     bairro: "Pinheiros"
     cidade: "São Paulo"
+foursquare_id: "614e23ef4f73bb5d2ab00aff"
+categoria_fsq: "Coffee Shop"
+website: "https://www.goomer.app/ripito-almoco-cafe-delivery-restaurante"
 description: |-
   Na compra de 1 Prato
   Principal (ou do dia)
