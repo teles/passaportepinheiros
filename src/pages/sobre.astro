@@ -1,0 +1,156 @@
+---
+import { BookOpen, Compass, MapPinned, Sparkles } from '@lucide/astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCategoryCounts, sortExperiences } from '../lib/experiences';
+import { withBase } from '../lib/urls';
+
+const experiences = sortExperiences(await getCollection('experiencias'));
+const counts = getCategoryCounts(experiences);
+const pages = await getCollection('pages');
+const aboutPage = pages.find((entry) => entry.data.slug === 'sobre');
+
+if (!aboutPage) {
+  throw new Error('Conteúdo da página Sobre não encontrado em src/content/pages/sobre.md');
+}
+
+const page = aboutPage.data;
+const [primaryImage, secondaryImage, tertiaryImage] = page.featuredImages;
+const iconMap = {
+  bookOpen: BookOpen,
+  compass: Compass,
+  mapPinned: MapPinned,
+  sparkles: Sparkles,
+};
+const GuideIcon = iconMap[page.guide.icon];
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+>
+  <section class="container-shell grid gap-10 py-12 md:py-16 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+    <div class="max-w-2xl">
+      <p class="brand-heading text-sm font-bold text-primary">{page.eyebrow}</p>
+      <h1 class="brand-heading mt-4 text-[42px] font-bold leading-[0.95] text-ink md:text-[68px]">
+        {page.headline.prefix}
+        <span class="blue-word">{page.headline.highlight}</span>
+        {page.headline.suffix}
+      </h1>
+      <p class="mt-6 text-lg leading-relaxed text-muted">
+        {page.intro}
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={withBase(page.actions.primary.href)}
+          class="primary-cta brand-pill inline-flex px-6 py-3 font-display text-sm font-bold uppercase tracking-wide transition"
+        >
+          {page.actions.primary.label}
+        </a>
+        <a
+          href={withBase(page.actions.secondary.href)}
+          class="focus-ring inline-flex rounded-full border border-primary px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-primary transition hover:bg-primary hover:text-white"
+        >
+          {page.actions.secondary.label}
+        </a>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-[0.78fr_1fr] gap-4">
+      <div class="grid gap-4 pt-10">
+        <img
+          src={withBase(primaryImage.src)}
+          alt={primaryImage.alt}
+          class="aspect-[4/5] w-full rounded-lg object-cover shadow-[0_18px_44px_rgba(0,110,199,0.12)]"
+          loading="eager"
+        />
+        <div class="rounded-lg border border-border/70 bg-surface p-5">
+          <p class="brand-heading text-4xl font-bold text-primary">{counts.todos}</p>
+          <p class="mt-1 text-sm font-semibold text-muted">{page.statsLabel}</p>
+        </div>
+      </div>
+      <div class="grid gap-4">
+        <img
+          src={withBase(secondaryImage.src)}
+          alt={secondaryImage.alt}
+          class="aspect-[5/4] w-full rounded-lg object-cover shadow-[0_18px_44px_rgba(0,110,199,0.12)]"
+          loading="eager"
+        />
+        <img
+          src={withBase(tertiaryImage.src)}
+          alt={tertiaryImage.alt}
+          class="aspect-[4/3] w-full rounded-lg object-cover shadow-[0_18px_44px_rgba(0,110,199,0.12)]"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="container-shell pb-12 md:pb-16">
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        page.pillars.map((pillar) => {
+          const Icon = iconMap[pillar.icon];
+
+          return (
+            <article class="rounded-lg border border-border/70 bg-surface p-6 shadow-[0_16px_44px_rgba(0,110,199,0.06)]">
+              <Icon class="h-7 w-7 text-primary" aria-hidden="true" />
+              <h2 class="mt-5 font-display text-2xl font-bold text-primary">{pillar.title}</h2>
+              <p class="mt-3 leading-relaxed text-muted">{pillar.text}</p>
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <section class="bg-primary py-12 text-white md:py-16">
+    <div class="container-shell grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+      <div>
+        <p class="brand-heading text-sm font-bold text-white/75">{page.editorial.eyebrow}</p>
+        <h2 class="brand-heading mt-3 text-4xl font-bold leading-tight md:text-5xl">
+          {page.editorial.title}
+        </h2>
+        <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
+          {page.editorial.text}
+        </p>
+      </div>
+
+      <div class="grid gap-3 sm:grid-cols-3 md:grid-cols-1">
+        <div class="rounded-lg bg-white/12 p-5">
+          <p class="brand-heading text-4xl font-bold">{counts.restaurantes}</p>
+          <p class="mt-1 text-sm font-semibold text-white/80">restaurantes</p>
+        </div>
+        <div class="rounded-lg bg-white/12 p-5">
+          <p class="brand-heading text-4xl font-bold">{counts.servicos}</p>
+          <p class="mt-1 text-sm font-semibold text-white/80">serviços</p>
+        </div>
+        <div class="rounded-lg bg-white/12 p-5">
+          <p class="brand-heading text-4xl font-bold">{counts.produtos}</p>
+          <p class="mt-1 text-sm font-semibold text-white/80">produtos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-shell grid gap-8 py-12 md:grid-cols-[0.72fr_1fr] md:py-16 md:items-start">
+    <div class="rounded-lg border border-border/70 bg-surface p-6">
+      <GuideIcon class="h-8 w-8 text-primary" aria-hidden="true" />
+      <h2 class="brand-heading mt-5 text-3xl font-bold leading-tight text-primary">
+        {page.guide.title}
+      </h2>
+    </div>
+
+    <div class="grid gap-5 text-lg leading-relaxed text-muted">
+      {page.guide.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      <div class="pt-3">
+        <a
+          href={withBase(page.guide.cta.href)}
+          class="inline-flex font-display text-sm font-bold uppercase tracking-wide text-primary hover:underline"
+        >
+          {page.guide.cta.label}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

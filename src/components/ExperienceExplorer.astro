@@ -85,7 +85,7 @@ const statusFilterItems = [
   data-initial-tags={initialTags}
 >
   <div class="mb-8 grid gap-6 lg:grid-cols-[320px_1fr]">
-    <aside class="rounded-lg border border-border/70 bg-surface p-6 shadow-[0_16px_44px_rgba(0,110,199,0.06)]">
+    <aside class="rounded-lg border border-border/70 bg-surface p-5 shadow-[0_16px_44px_rgba(0,110,199,0.06)] md:p-6 lg:sticky lg:top-28 lg:self-start">
       <div class="mb-6">
         <p class="brand-heading text-sm font-bold text-primary">Filtros</p>
         <h2 class="brand-heading mt-2 text-4xl font-bold leading-none text-ink">
@@ -93,7 +93,7 @@ const statusFilterItems = [
         </h2>
       </div>
 
-      <div class="grid gap-2">
+      <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
         {
           filterItems.map(({ value, label, count, Icon }) => (
             <button
@@ -117,7 +117,7 @@ const statusFilterItems = [
         <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
           Tipo de Benefício
         </p>
-        <div class="mt-3 grid gap-2">
+        <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
           {
             benefitTypes.map(({ value, label, emoji }) => (
               <button
@@ -162,7 +162,7 @@ const statusFilterItems = [
         <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
           Meu passaporte
         </p>
-        <div class="mt-3 grid gap-2">
+        <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
           {
             statusFilterItems.map(({ value, label, Icon }) => (
               <button

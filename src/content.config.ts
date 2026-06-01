@@ -66,4 +66,55 @@ const faq = defineCollection({
   }),
 });
 
-export const collections = { experiencias, faq };
+const pageImageSchema = z.object({
+  src: z.string(),
+  alt: z.string(),
+});
+
+const pageActionSchema = z.object({
+  label: z.string(),
+  href: z.string(),
+});
+
+const pages = defineCollection({
+  loader: glob({
+    base: './src/content/pages',
+    pattern: '**/*.md',
+  }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    description: z.string(),
+    eyebrow: z.string(),
+    headline: z.object({
+      prefix: z.string(),
+      highlight: z.string(),
+      suffix: z.string(),
+    }),
+    intro: z.string(),
+    actions: z.object({
+      primary: pageActionSchema,
+      secondary: pageActionSchema,
+    }),
+    featuredImages: z.tuple([pageImageSchema, pageImageSchema, pageImageSchema]),
+    statsLabel: z.string(),
+    pillars: z.array(z.object({
+      title: z.string(),
+      text: z.string(),
+      icon: z.enum(['compass', 'mapPinned', 'sparkles']),
+    })),
+    editorial: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      text: z.string(),
+    }),
+    guide: z.object({
+      icon: z.enum(['bookOpen']),
+      title: z.string(),
+      paragraphs: z.array(z.string()),
+      cta: pageActionSchema,
+    }),
+  }),
+});
+
+export const collections = { experiencias, faq, pages };
