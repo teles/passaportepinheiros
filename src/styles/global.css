@@ -258,7 +258,64 @@ input {
 }
 
 .modal-panel {
+  color: var(--color-ink);
   animation: modalSlideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.dark .modal-panel {
+  border-color: #2c4561;
+}
+
+.modal-primary-link,
+.modal-primary-link:visited {
+  color: var(--color-primary);
+}
+
+.modal-primary-link:hover,
+.modal-primary-link:focus-visible {
+  color: var(--color-primary-strong);
+}
+
+.modal-contact-link,
+.modal-contact-link:visited {
+  border-color: rgba(207, 221, 234, 0.7);
+  background: var(--color-surface-soft);
+  color: var(--color-muted);
+}
+
+.modal-contact-link:hover,
+.modal-contact-link:focus-visible {
+  border-color: var(--color-primary);
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+}
+
+html.dark .modal-contact-link,
+html.dark .modal-contact-link:visited {
+  border-color: #2c4561;
+  background: rgba(59, 158, 222, 0.08);
+  color: #c8d5e3;
+}
+
+html.dark .modal-contact-link:hover,
+html.dark .modal-contact-link:focus-visible {
+  border-color: var(--color-primary);
+  background: rgba(59, 158, 222, 0.16);
+  color: #ffffff;
+}
+
+.modal-contact-link--whatsapp,
+.modal-contact-link--whatsapp:visited {
+  border-color: rgba(37, 211, 102, 0.2);
+  background: rgba(37, 211, 102, 0.1);
+  color: #075e54;
+}
+
+html.dark .modal-contact-link--whatsapp,
+html.dark .modal-contact-link--whatsapp:visited {
+  border-color: rgba(37, 211, 102, 0.35);
+  background: rgba(37, 211, 102, 0.12);
+  color: #85efac;
 }
 
 @keyframes modalSlideUp {

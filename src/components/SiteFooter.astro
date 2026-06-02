@@ -48,6 +48,62 @@ import { withBase } from '../lib/urls';
         <a class="hover:text-white transition" href={withBase('/contato/')}>Contato</a>
         <a class="hover:text-white transition" href={withBase('/politicas-de-privacidade/')}>Políticas de Privacidade</a>
       </nav>
+
+      <div class="mt-5" role="group" aria-label="Seletor de tema">
+        <p class="font-display text-base font-bold text-white">Tema</p>
+        <div class="mt-3 inline-flex rounded-full border border-white/30 p-1">
+          <button
+            type="button"
+            id="theme-btn-light"
+            class="focus-ring rounded-full border border-transparent px-4 py-2 font-display text-xs font-bold uppercase tracking-wide text-white/75 transition hover:bg-white/15"
+            aria-pressed="false"
+          >
+            Claro
+          </button>
+          <button
+            type="button"
+            id="theme-btn-dark"
+            class="focus-ring rounded-full border border-transparent px-4 py-2 font-display text-xs font-bold uppercase tracking-wide text-white/75 transition hover:bg-white/15"
+            aria-pressed="false"
+          >
+            Escuro
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var isDark = document.documentElement.classList.contains('dark');
+    var btnLight = document.getElementById('theme-btn-light');
+    var btnDark = document.getElementById('theme-btn-dark');
+
+    function syncButton(button: HTMLElement | null, active: boolean) {
+      button?.setAttribute('aria-pressed', String(active));
+      button?.classList.toggle('border-white', active);
+      button?.classList.toggle('bg-white', active);
+      button?.classList.toggle('text-primary', active);
+      button?.classList.toggle('border-transparent', !active);
+      button?.classList.toggle('text-white/75', !active);
+      button?.classList.toggle('hover:bg-white/15', !active);
+    }
+
+    function sync(dark: boolean) {
+      document.documentElement.classList.toggle('dark', dark);
+      syncButton(btnLight, !dark);
+      syncButton(btnDark, dark);
+    }
+
+    sync(isDark);
+    btnLight?.addEventListener('click', function () {
+      sync(false);
+      localStorage.setItem('pp-theme', 'light');
+    });
+    btnDark?.addEventListener('click', function () {
+      sync(true);
+      localStorage.setItem('pp-theme', 'dark');
+    });
+  })();
+</script>

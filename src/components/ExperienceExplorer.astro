@@ -8,8 +8,8 @@ import {
   Search,
   ShoppingBag,
   SlidersHorizontal,
-  Tag,
   Utensils,
+  X,
 } from '@lucide/astro';
 import ExperienceCard from './ExperienceCard.astro';
 import {
@@ -85,104 +85,130 @@ const statusFilterItems = [
   data-initial-tags={initialTags}
 >
   <div class="mb-8 grid gap-6 lg:grid-cols-[320px_1fr]">
-    <aside class="rounded-lg border border-border/70 bg-surface p-5 shadow-[0_16px_44px_rgba(0,110,199,0.06)] md:p-6 lg:sticky lg:top-28 lg:self-start">
-      <div class="mb-6">
-        <p class="brand-heading text-sm font-bold text-primary">Filtros</p>
-        <h2 class="brand-heading mt-2 text-4xl font-bold leading-none text-ink">
-          Experiências
-        </h2>
-      </div>
-
-      <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
-        {
-          filterItems.map(({ value, label, count, Icon }) => (
-            <button
-              type="button"
-              class="filter-button focus-ring flex items-center justify-between rounded-full border border-border/70 px-4 py-3 text-left font-display text-sm font-bold uppercase tracking-wide text-primary transition hover:border-primary"
-              data-filter-button
-              data-filter-value={value}
-              aria-pressed={initialCategory === value ? 'true' : 'false'}
-            >
-              <span class="flex items-center gap-3">
-                <Icon class="h-5 w-5" aria-hidden="true" />
-                {label}
-              </span>
-              <span class="rounded bg-surface-muted px-2 py-1 text-xs text-muted">{count}</span>
-            </button>
-          ))
-        }
-      </div>
-
-      <div class="mt-7 border-t border-border/70 pt-5">
-        <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
-          Tipo de Benefício
-        </p>
-        <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
-          {
-            benefitTypes.map(({ value, label, emoji }) => (
-              <button
-                type="button"
-                class="benefit-filter-button focus-ring flex items-center justify-between rounded-lg border border-border/70 bg-surface-soft/60 px-4 py-2.5 text-left font-display text-xs font-bold uppercase tracking-wide text-primary transition hover:border-primary aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-white"
-                data-benefit-filter-button
-                data-benefit-value={value}
-                aria-pressed="false"
-              >
-                <span class="flex items-center gap-2">
-                  <span aria-hidden="true">{emoji}</span>
-                  {label}
-                </span>
-              </button>
-            ))
-          }
+    <div
+      id="experience-filters"
+      class="fixed inset-0 z-[80] hidden h-[100dvh] w-screen overflow-hidden bg-surface lg:sticky lg:top-28 lg:z-auto lg:block lg:h-auto lg:w-auto lg:overflow-visible lg:bg-transparent lg:self-start"
+      data-filter-overlay
+    >
+      <aside class="flex h-full flex-col overflow-y-auto bg-surface p-5 shadow-[0_16px_44px_rgba(0,110,199,0.06)] md:p-6 lg:h-auto lg:max-h-[calc(100dvh-7rem)] lg:rounded-lg lg:border lg:border-border/70">
+        <div class="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <p class="brand-heading text-sm font-bold text-primary">Filtros</p>
+            <h2 class="brand-heading mt-2 text-4xl font-bold leading-none text-ink">
+              Experiências
+            </h2>
+          </div>
+          <button
+            type="button"
+            class="focus-ring inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border/70 text-primary transition hover:bg-surface-muted lg:hidden"
+            data-filter-menu-close
+            aria-label="Fechar filtros"
+          >
+            <X class="h-5 w-5" aria-hidden="true" />
+          </button>
         </div>
-      </div>
 
-      <div class="mt-7 border-t border-border/70 pt-5">
-        <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
-          Tags
-        </p>
-        <div class="mt-3 flex flex-wrap gap-2">
+        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
           {
-            knownTags.map(({ value, label }) => (
+            filterItems.map(({ value, label, count, Icon }) => (
               <button
                 type="button"
-                class="tag-filter-button focus-ring rounded-full border border-border/70 px-3 py-1.5 font-display text-xs font-bold uppercase tracking-wide text-muted transition hover:border-primary hover:text-primary aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-white"
-                data-tag-filter-button
-                data-tag-value={value}
-                aria-pressed="false"
-              >
-                {label}
-              </button>
-            ))
-          }
-        </div>
-      </div>
-
-      <div class="mt-7 border-t border-border/70 pt-5">
-        <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
-          Meu passaporte
-        </p>
-        <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
-          {
-            statusFilterItems.map(({ value, label, Icon }) => (
-              <button
-                type="button"
-                class="status-filter-button focus-ring flex items-center justify-between rounded-lg border border-border/70 bg-surface-soft/60 px-4 py-3 text-left font-display text-sm font-bold uppercase tracking-wide text-primary transition hover:border-primary"
-                data-status-filter-button
-                data-status-filter-value={value}
-                aria-pressed="false"
+                class="filter-button focus-ring flex items-center justify-between rounded-full border border-border/70 px-4 py-3 text-left font-display text-sm font-bold uppercase tracking-wide text-primary transition hover:border-primary"
+                data-filter-button
+                data-filter-value={value}
+                aria-pressed={initialCategory === value ? 'true' : 'false'}
               >
                 <span class="flex items-center gap-3">
                   <Icon class="h-5 w-5" aria-hidden="true" />
                   {label}
                 </span>
-                <span class="rounded bg-white px-2 py-1 text-xs text-muted" data-status-count={value}>0</span>
+                <span class="rounded bg-surface-muted px-2 py-1 text-xs text-muted">{count}</span>
               </button>
             ))
           }
         </div>
-      </div>
-    </aside>
+
+        <div class="mt-7 border-t border-border/70 pt-5">
+          <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
+            Tipo de Benefício
+          </p>
+          <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+            {
+              benefitTypes.map(({ value, label, emoji }) => (
+                <button
+                  type="button"
+                  class="benefit-filter-button focus-ring flex items-center justify-between rounded-lg border border-border/70 bg-surface-soft/60 px-4 py-2.5 text-left font-display text-xs font-bold uppercase tracking-wide text-primary transition hover:border-primary aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-white"
+                  data-benefit-filter-button
+                  data-benefit-value={value}
+                  aria-pressed="false"
+                >
+                  <span class="flex items-center gap-2">
+                    <span aria-hidden="true">{emoji}</span>
+                    {label}
+                  </span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="mt-7 border-t border-border/70 pt-5">
+          <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
+            Tags
+          </p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {
+              knownTags.map(({ value, label }) => (
+                <button
+                  type="button"
+                  class="tag-filter-button focus-ring rounded-full border border-border/70 px-3 py-1.5 font-display text-xs font-bold uppercase tracking-wide text-muted transition hover:border-primary hover:text-primary aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-white"
+                  data-tag-filter-button
+                  data-tag-value={value}
+                  aria-pressed="false"
+                >
+                  {label}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="mt-7 border-t border-border/70 pt-5">
+          <p class="brand-heading text-xs font-bold uppercase tracking-wide text-muted">
+            Meu passaporte
+          </p>
+          <div class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+            {
+              statusFilterItems.map(({ value, label, Icon }) => (
+                <button
+                  type="button"
+                  class="status-filter-button focus-ring flex items-center justify-between rounded-lg border border-border/70 bg-surface-soft/60 px-4 py-3 text-left font-display text-sm font-bold uppercase tracking-wide text-primary transition hover:border-primary"
+                  data-status-filter-button
+                  data-status-filter-value={value}
+                  aria-pressed="false"
+                >
+                  <span class="flex items-center gap-3">
+                    <Icon class="h-5 w-5" aria-hidden="true" />
+                    {label}
+                  </span>
+                  <span class="rounded bg-white px-2 py-1 text-xs text-muted" data-status-count={value}>0</span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="sticky bottom-0 -mx-5 mt-8 border-t border-border/70 bg-surface p-5 md:-mx-6 md:px-6 lg:hidden">
+          <button
+            type="button"
+            class="focus-ring brand-pill primary-cta flex w-full items-center justify-center px-5 py-3 font-display text-sm font-bold uppercase tracking-wide transition"
+            data-filter-menu-close
+          >
+            Ver resultados
+          </button>
+        </div>
+      </aside>
+    </div>
 
     <div>
       <div class="mb-6 rounded-lg border border-border/70 bg-surface p-4 shadow-[0_16px_44px_rgba(0,110,199,0.06)]">
@@ -336,7 +362,7 @@ const statusFilterItems = [
           <a
             id="exp-modal-link"
             href="#"
-            class="inline-flex items-center gap-1 text-sm font-semibold text-primary transition hover:text-primary-strong"
+            class="modal-primary-link inline-flex items-center gap-1 text-sm font-semibold transition"
           >
             Ver página completa
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -369,6 +395,10 @@ const statusFilterItems = [
   document.querySelectorAll('[data-explorer]').forEach((root) => {
     const searchInput = root.querySelector<HTMLInputElement>('[data-search-input]');
     const clearButton = root.querySelector<HTMLButtonElement>('[data-clear-filters]');
+    const filterOverlay = root.querySelector<HTMLElement>('[data-filter-overlay]');
+    const filterMenuCloseButtons = [
+      ...root.querySelectorAll<HTMLButtonElement>('[data-filter-menu-close]'),
+    ];
     const filterButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-filter-button]')];
     const statusFilterButtons = [
       ...root.querySelectorAll<HTMLButtonElement>('[data-status-filter-button]'),
@@ -392,6 +422,37 @@ const statusFilterItems = [
     // Seed search input from initial value
     const initialBusca = root.getAttribute('data-initial-busca') || '';
     if (searchInput && initialBusca) searchInput.value = initialBusca;
+
+    const desktopFilters = window.matchMedia('(min-width: 1024px)');
+    const openFilterMenu = () => {
+      filterOverlay?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      root.querySelector<HTMLElement>('[data-filter-menu-close]')?.focus();
+    };
+
+    const closeFilterMenu = () => {
+      filterOverlay?.classList.add('hidden');
+      document.body.style.overflow = '';
+      window.dispatchEvent(new CustomEvent('experience-filters:closed'));
+      document.querySelector<HTMLButtonElement>('[data-mobile-menu-button]')?.focus();
+    };
+
+    window.addEventListener('experience-filters:open', openFilterMenu);
+    filterMenuCloseButtons.forEach((button) => {
+      button.addEventListener('click', closeFilterMenu);
+    });
+
+    filterOverlay?.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !desktopFilters.matches) closeFilterMenu();
+    });
+
+    desktopFilters.addEventListener('change', (event) => {
+      if (event.matches) {
+        filterOverlay?.classList.add('hidden');
+        document.body.style.overflow = '';
+        window.dispatchEvent(new CustomEvent('experience-filters:closed'));
+      }
+    });
 
     // URL sync helper
     const syncUrl = () => {
@@ -793,12 +854,12 @@ const statusFilterItems = [
               const icon = isWA ? waSvg : phoneSvg;
               const label = isWA ? 'WhatsApp' : esc(tel.formatado);
               const cls = isWA
-                ? 'inline-flex items-center gap-2 rounded-lg border border-[#25D366]/20 bg-[#25D366]/10 px-4 py-2.5 text-[13px] font-semibold text-[#075E54] transition hover:bg-[#25D366]/20'
-                : 'inline-flex items-center gap-2 rounded-lg border border-border/70 bg-surface-soft px-4 py-2.5 text-[13px] font-semibold text-muted transition hover:bg-surface-muted hover:border-border';
+                ? 'modal-contact-link modal-contact-link--whatsapp inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-[13px] font-semibold transition'
+                : 'modal-contact-link inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-[13px] font-semibold transition';
               html += `<a href="${href}" ${isWA ? 'target="_blank" rel="noreferrer"' : ''} class="${cls}">${icon}${label}</a>`;
             }
             if (exp.instagram) {
-              html += `<a href="${esc(exp.instagramUrl)}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-border/70 bg-surface-soft px-4 py-2.5 text-[13px] font-semibold text-muted transition hover:bg-surface-muted hover:border-border">${instagramSvg}@${esc(exp.instagram)}</a>`;
+              html += `<a href="${esc(exp.instagramUrl)}" target="_blank" rel="noreferrer" class="modal-contact-link inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-[13px] font-semibold transition">${instagramSvg}@${esc(exp.instagram)}</a>`;
             }
             html += `</div>`;
           }
@@ -807,7 +868,7 @@ const statusFilterItems = [
       } else if (exp.instagram) {
         html += `<section class="space-y-4">
           <p class="text-[12px] font-semibold uppercase tracking-widest text-muted">Instagram</p>
-          <a href="${esc(exp.instagramUrl)}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-border/70 bg-surface-soft px-4 py-2.5 text-[13px] font-semibold text-muted transition hover:bg-surface-muted">${instagramSvg}@${esc(exp.instagram)}</a>
+          <a href="${esc(exp.instagramUrl)}" target="_blank" rel="noreferrer" class="modal-contact-link inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-[13px] font-semibold transition">${instagramSvg}@${esc(exp.instagram)}</a>
         </section>`;
       }
 

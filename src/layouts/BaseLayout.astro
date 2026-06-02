@@ -84,32 +84,6 @@ const ogImageUrl = ogImage ?? `${siteOrigin}${withBase('/brand/logo-passaporte-p
       })();
     </script>
     <div class="flex min-h-screen flex-col">
-      <div class="theme-bar border-b border-border/50 bg-surface-soft text-right">
-        <div class="container-shell flex justify-end gap-0 py-1">
-          <button type="button" id="theme-btn-light" class="px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted transition hover:text-primary" aria-pressed="false">Light</button>
-          <span class="text-[11px] text-border">|</span>
-          <button type="button" id="theme-btn-dark" class="px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted transition hover:text-primary" aria-pressed="false">Dark</button>
-        </div>
-      </div>
-      <script>
-        (function () {
-          var isDark = document.documentElement.classList.contains('dark');
-          var btnLight = document.getElementById('theme-btn-light');
-          var btnDark = document.getElementById('theme-btn-dark');
-          function sync(dark: boolean) {
-            document.documentElement.classList.toggle('dark', dark);
-            btnLight?.setAttribute('aria-pressed', String(!dark));
-            btnDark?.setAttribute('aria-pressed', String(dark));
-            btnLight?.classList.toggle('text-primary', !dark);
-            btnLight?.classList.toggle('text-muted', dark);
-            btnDark?.classList.toggle('text-primary', dark);
-            btnDark?.classList.toggle('text-muted', !dark);
-          }
-          sync(isDark);
-          btnLight?.addEventListener('click', function () { sync(false); localStorage.setItem('pp-theme', 'light'); });
-          btnDark?.addEventListener('click', function () { sync(true); localStorage.setItem('pp-theme', 'dark'); });
-        })();
-      </script>
       <a
         href="#main-content"
         class="skip-to-content focus-ring"

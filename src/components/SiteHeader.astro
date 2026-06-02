@@ -35,7 +35,12 @@ const mobileLinks = [
       <img
         src={withBase('/brand/logo-passaporte-pinheiros.svg')}
         alt="Passaporte Pinheiros"
-        class="h-10 w-auto md:h-12"
+        class="h-10 w-auto dark:hidden md:h-12"
+      />
+      <img
+        src={withBase('/brand/logo-passaporte-pinheiros-white.svg')}
+        alt="Passaporte Pinheiros"
+        class="hidden h-10 w-auto dark:block md:h-12"
       />
     </a>
 
@@ -160,13 +165,32 @@ const mobileLinks = [
   // Mobile menu toggle
   const menuButton = document.querySelector('[data-mobile-menu-button]');
   const menu = document.querySelector('[data-mobile-menu]');
+  const hasExperienceFilters = () => Boolean(document.querySelector('[data-filter-overlay]'));
+  const setMenuIconOpen = (open: boolean) => {
+    menuButton?.querySelector('.menu-open')?.classList.toggle('hidden', open);
+    menuButton?.querySelector('.menu-close')?.classList.toggle('hidden', !open);
+  };
 
   menuButton?.addEventListener('click', () => {
+    if (hasExperienceFilters()) {
+      menu?.classList.add('hidden');
+      menuButton.setAttribute('aria-controls', 'experience-filters');
+      menuButton.setAttribute('aria-expanded', 'true');
+      menuButton.setAttribute('aria-label', 'Abrir filtros');
+      setMenuIconOpen(true);
+      window.dispatchEvent(new CustomEvent('experience-filters:open'));
+      return;
+    }
+
     const expanded = menuButton.getAttribute('aria-expanded') === 'true';
     menuButton.setAttribute('aria-expanded', String(!expanded));
     menu?.classList.toggle('hidden', expanded);
-    menuButton.querySelector('.menu-open')?.classList.toggle('hidden', !expanded);
-    menuButton.querySelector('.menu-close')?.classList.toggle('hidden', expanded);
+    setMenuIconOpen(!expanded);
+  });
+
+  window.addEventListener('experience-filters:closed', () => {
+    menuButton?.setAttribute('aria-expanded', 'false');
+    setMenuIconOpen(false);
   });
 
   // Desktop dropdown
