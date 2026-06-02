@@ -17,9 +17,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["aulas", "danca", "servico"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de uma escova, ganhe uma hidratação.
+benefitType: "brinde"
 ---
 
 # Beauty Glow
 
-Informações da experiência em atualização.
+Na compra de uma escova, ganhe uma hidratação.

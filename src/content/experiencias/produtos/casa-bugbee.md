@@ -17,9 +17,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["infantil", "loja", "produto", "roupas"]
-benefitType: "beneficio-especial"
+description: |-
+  Ganhe 20% de desconto* na compra de produtos Bugbee. *Não cumulativo com outras promoções.
+benefitType: "desconto"
 ---
 
 # Casa Bugbee
 
-Informações da experiência em atualização.
+Ganhe 20% de desconto* na compra de produtos Bugbee. *Não cumulativo com outras promoções.

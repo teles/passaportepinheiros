@@ -16,9 +16,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["pizza"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de 1 pizza, seu acompanhante ganha outra de igual ou menor valor. Válido na Bráz Elettrica da Rua dos Pinheiros, de domingo a quinta-feira.
+benefitType: "compre-1-leve-outro"
 ---
 
 # Bráz Elettrica
 
-Informações da experiência em atualização.
+Na compra de 1 pizza, seu acompanhante ganha outra de igual ou menor valor. Válido na Bráz Elettrica da Rua dos Pinheiros, de domingo a quinta-feira.

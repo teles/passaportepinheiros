@@ -19,9 +19,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["confort-food"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de qualquer item do cardápio, seu acompanhante ganha outro de igual ou menor valor.
+benefitType: "compre-1-leve-outro"
 ---
 
 # Barraca da Lulu
 
-Informações da experiência em atualização.
+Na compra de qualquer item do cardápio, seu acompanhante ganha outro de igual ou menor valor.

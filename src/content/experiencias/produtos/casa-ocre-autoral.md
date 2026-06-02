@@ -13,9 +13,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["produto"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de qualquer produto, ganhe 1 ecobag exclusiva Casa Ocre.
+benefitType: "brinde"
 ---
 
 # Casa Ocre Autoral
 
-Informações da experiência em atualização.
+Na compra de qualquer produto, ganhe 1 ecobag exclusiva Casa Ocre.
