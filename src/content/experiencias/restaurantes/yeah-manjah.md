@@ -15,9 +15,17 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: []
+description: |-
+  Na compra de 1 prato de mexilhões, seu acompanhante ganha 50% de desconto no segundo prato de mexilhões. OU na compra de 1 prato de mexilhões, ganhe 2 taças de vinho. Consultar disponibilidade do vinho do dia.
 benefitType: "beneficio-especial"
 ---
 
 # Yeah Manjah
 
-Informações da experiência em atualização.
+Na compra de 1 prato de mexilhões, seu acompanhante ganha 50% de desconto no segundo prato de mexilhões.
+
+OU
+
+Na compra de 1 prato de mexilhões, ganhe 2 taças de vinho.
+
+Consultar disponibilidade do vinho do dia.

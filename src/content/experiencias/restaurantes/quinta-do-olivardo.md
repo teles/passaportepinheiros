@@ -18,9 +18,17 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["entretenimento"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de 2 pratos individuais ou 1 para compartilhar, ganhe duas sobremesas (doces portugueses). OU na compra de 2 pratos individuais ou 1 para compartilhar, ganhe 2 taças de vinho. Consultar disponibilidade de rótulo.
+benefitType: "brinde"
 ---
 
 # Quinta do Olivardo
 
-Informações da experiência em atualização.
+Na compra de 2 pratos individuais ou 1 para compartilhar, ganhe duas sobremesas (doces portugueses).
+
+OU
+
+Na compra de 2 pratos individuais ou 1 para compartilhar, ganhe 2 taças de vinho.
+
+Consultar disponibilidade de rótulo.

@@ -19,9 +19,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["brasileira", "nordestina"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de 1 prato, seu acompanhante ganha outro de igual ou menor valor. Válido de segunda a sexta-feira.
+benefitType: "compre-1-leve-outro"
 ---
 
 # Preto
 
-Informações da experiência em atualização.
+Na compra de 1 prato, seu acompanhante ganha outro de igual ou menor valor. Válido de segunda a sexta-feira.

@@ -17,9 +17,13 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["confeitaria", "doces"]
-benefitType: "beneficio-especial"
+description: |-
+  1º Carimbo: na compra de 1 fatia de bolo ou torta, seu acompanhante ganha 1 fatia de blondie de caramelo com flor de sal. 2º Carimbo: na compra de 1 fatia de bolo ou torta, seu acompanhante ganha 1 fatia de brownie de chocolate ou tahine.
+benefitType: "brinde"
 ---
 
 # Luiza Lafer Confeitaria
 
-Informações da experiência em atualização.
+1º Carimbo: na compra de 1 fatia de bolo ou torta, seu acompanhante ganha 1 fatia de blondie de caramelo com flor de sal.
+
+2º Carimbo: na compra de 1 fatia de bolo ou torta, seu acompanhante ganha 1 fatia de brownie de chocolate ou tahine.

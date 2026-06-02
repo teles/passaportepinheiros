@@ -17,9 +17,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["familia", "lazer"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de 1 prato, seu acompanhante ganha outro de igual ou menor valor.
+benefitType: "compre-1-leve-outro"
 ---
 
 # Esquina do Meio
 
-Informações da experiência em atualização.
+Na compra de 1 prato, seu acompanhante ganha outro de igual ou menor valor.

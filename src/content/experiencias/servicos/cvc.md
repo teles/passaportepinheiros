@@ -15,9 +15,13 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["servico"]
-benefitType: "beneficio-especial"
+description: |-
+  Ganhe até 5% de desconto em pacotes* de viagens + 1 oferta surpresa durante a compra. *Aéreo com hospedagem + algum serviço incluso.
+benefitType: "desconto"
 ---
 
 # CVC
 
-Informações da experiência em atualização.
+Ganhe até 5% de desconto em pacotes* de viagens + 1 oferta surpresa durante a compra.
+
+*Aéreo com hospedagem + algum serviço incluso.

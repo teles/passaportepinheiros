@@ -17,9 +17,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["aulas", "danca", "servico"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de um pacote de 10 aulas, ganhe 3 aulas bônus.
+benefitType: "brinde"
 ---
 
 # Dance Glow
 
-Informações da experiência em atualização.
+Na compra de um pacote de 10 aulas, ganhe 3 aulas bônus.

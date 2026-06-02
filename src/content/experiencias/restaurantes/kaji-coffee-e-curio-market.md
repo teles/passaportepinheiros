@@ -14,9 +14,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: []
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de um sanduíche, seu acompanhante ganha outro de igual ou menor valor.
+benefitType: "compre-1-leve-outro"
 ---
 
 # Kaji Coffee & Curio Market
 
-Informações da experiência em atualização.
+Na compra de um sanduíche, seu acompanhante ganha outro de igual ou menor valor.

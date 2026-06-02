@@ -13,9 +13,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: []
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de 1 smashed + 1 batata frita, seu acompanhante ganha outro smashed + 1 batata frita.
+benefitType: "compre-1-leve-outro"
 ---
 
 # Na Garagem
 
-Informações da experiência em atualização.
+Na compra de 1 smashed + 1 batata frita, seu acompanhante ganha outro smashed + 1 batata frita.

@@ -17,9 +17,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["bar", "drinks"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de 1 combo com 1 cheese salada + 1 pint de chopp artesanal pilsen ou Irish Red Ale, seu acompanhante ganha outro combo igual.
+benefitType: "compre-1-leve-outro"
 ---
 
 # Partisans Pub
 
-Informações da experiência em atualização.
+Na compra de 1 combo com 1 cheese salada + 1 pint de chopp artesanal pilsen ou Irish Red Ale, seu acompanhante ganha outro combo igual.

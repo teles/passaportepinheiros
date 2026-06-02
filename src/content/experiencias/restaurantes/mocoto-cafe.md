@@ -14,9 +14,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: []
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de 1 baião de dois completo, ganhe 1 porção de dadinho de tapioca (6 unidades) e uma sobremesa.
+benefitType: "brinde"
 ---
 
 # Mocotó Café
 
-Informações da experiência em atualização.
+Na compra de 1 baião de dois completo, ganhe 1 porção de dadinho de tapioca (6 unidades) e uma sobremesa.

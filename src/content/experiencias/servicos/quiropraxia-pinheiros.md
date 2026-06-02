@@ -14,9 +14,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["servico"]
-benefitType: "beneficio-especial"
+description: |-
+  Compre uma consulta de quiropraxia + massagem e ganhe outra.
+benefitType: "compre-1-leve-outro"
 ---
 
 # Quiropraxia Pinheiros
 
-Informações da experiência em atualização.
+Compre uma consulta de quiropraxia + massagem e ganhe outra.

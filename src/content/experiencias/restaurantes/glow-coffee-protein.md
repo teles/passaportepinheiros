@@ -17,9 +17,11 @@ source:
   path: "digitado.txt"
   filename: "digitado.txt"
 tags: ["aulas", "danca"]
-benefitType: "beneficio-especial"
+description: |-
+  Na compra de 1 shake, ganhe 1 café expresso.
+benefitType: "brinde"
 ---
 
 # Glow Coffee Protein
 
-Informações da experiência em atualização.
+Na compra de 1 shake, ganhe 1 café expresso.
