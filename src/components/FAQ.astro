@@ -28,11 +28,11 @@ const rendered = await Promise.all(
     {
       rendered.map((item, index) => (
         <div
-          class="accordion-item overflow-hidden rounded-lg border border-border/70 shadow-sm"
+          class="accordion-item overflow-hidden rounded-lg border border-border/70 bg-surface shadow-sm"
           id={`faq-item-${index}`}
         >
           <button
-            class="accordion-trigger flex w-full items-center justify-between gap-4 bg-ink px-6 py-5 text-left text-white transition-colors hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            class="accordion-trigger flex w-full items-center justify-between gap-4 bg-surface px-6 py-5 text-left text-ink transition-colors hover:bg-surface-muted hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary aria-expanded:bg-primary aria-expanded:text-white"
             aria-expanded="false"
             aria-controls={`faq-panel-${index}`}
           >
@@ -52,7 +52,7 @@ const rendered = await Promise.all(
           </button>
           <div
             id={`faq-panel-${index}`}
-            class="accordion-panel grid grid-rows-[0fr] transition-[grid-template-rows] duration-300"
+            class="accordion-panel grid grid-rows-[0fr] bg-surface transition-[grid-template-rows] duration-300"
             role="region"
           >
             <div class="overflow-hidden">
@@ -75,8 +75,6 @@ const rendered = await Promise.all(
       // Close all
       document.querySelectorAll<HTMLButtonElement>('.accordion-trigger').forEach((t) => {
         t.setAttribute('aria-expanded', 'false');
-        t.classList.remove('bg-primary');
-        t.classList.add('bg-ink');
         const panel = document.getElementById(t.getAttribute('aria-controls')!);
         panel?.classList.replace('grid-rows-[1fr]', 'grid-rows-[0fr]');
       });
@@ -84,8 +82,6 @@ const rendered = await Promise.all(
       // Open clicked if it was closed
       if (!isOpen) {
         trigger.setAttribute('aria-expanded', 'true');
-        trigger.classList.remove('bg-ink');
-        trigger.classList.add('bg-primary');
         const panel = document.getElementById(trigger.getAttribute('aria-controls')!);
         panel?.classList.replace('grid-rows-[0fr]', 'grid-rows-[1fr]');
       }
