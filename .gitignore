@@ -16,3 +16,6 @@ coverage/
 # Saida antiga do processamento, antes da separacao Astro/public.
 data/content/
 design/
+
+# Relatorios locais gerados a partir da Google Places API.
+data/google-places-*.generated.*
