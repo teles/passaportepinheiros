@@ -20,7 +20,16 @@ const topLinks = [
 const categoryHref = (category: string) =>
   new URL(withBase(`/experiencias/?categoria=${category}`), Astro.url).toString();
 
+const categoryValues = ['restaurantes', 'servicos', 'produtos'];
+const isAllExperiencesActive =
+  pathname.startsWith('/experiencias') && !categoryValues.includes(activeCategory ?? '');
+
 const subLinks = [
+  {
+    href: withBase('/experiencias/'),
+    label: 'Todas',
+    active: isAllExperiencesActive,
+  },
   {
     href: categoryHref('restaurantes'),
     label: 'Restaurantes',
@@ -39,7 +48,7 @@ const subLinks = [
 ];
 
 const mobileLinks = [
-  { href: withBase('/'), label: 'Explorar', active: pathname === '/' || pathname.startsWith('/experiencias') },
+  { href: withBase('/'), label: 'Explorar', active: pathname === '/' },
   ...subLinks,
   { href: withBase('/sobre/'), label: 'Sobre', active: pathname.startsWith('/sobre') },
   { href: withBase('/como-funciona/'), label: 'Como funciona', active: pathname.startsWith('/como-funciona') },

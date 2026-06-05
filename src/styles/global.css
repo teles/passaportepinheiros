@@ -354,6 +354,21 @@ html.dark .modal-panel {
   border-color: #2c4561;
 }
 
+.modal-close-button {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(15, 25, 35, 0.56);
+  color: #ffffff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(10px);
+}
+
+.modal-close-button:hover,
+.modal-close-button:focus-visible {
+  border-color: rgba(255, 255, 255, 0.54);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-primary-strong);
+}
+
 .modal-primary-link,
 .modal-primary-link:visited {
   color: var(--color-primary);
